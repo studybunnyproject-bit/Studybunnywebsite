@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Planner</title>
+  <link rel="stylesheet" href="weekly.css" />
+</head>
+<body>
+  <div class="weekly-container">
+    <h1>Weekly Planner</h1>
+
+    <section class="week-days" id="weekDays"></section>
+
+    <section class="weekly-goal">
+      <h2>Weekly Goal</h2>
+      <textarea id="weeklyGoal" placeholder="Write your goal for the week..."></textarea>
+    </section>
+
+    <section class="weekly-todo">
+      <h2>Weekly To-Do List</h2>
+      <input type="text" id="weeklyTodoInput" placeholder="New task" />
+      <button onclick="addWeeklyTask()">Add</button>
+      <ul id="weeklyTodoList"></ul>
+    </section>
+
+    <section class="weekly-notes">
+      <h2>Notes</h2>
+      <textarea id="weeklyNotes" placeholder="Write your notes..."></textarea>
+    </section>
+  </div>
+
+  <script src="weekly.js"></script>
+</body>
+</html>

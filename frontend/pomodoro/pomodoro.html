@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Pomodoro App</title>
+  <link rel="stylesheet" href="Pomodoro.css">
+</head>
+<body>
+  <div class="app-container">
+    <h1 id="h1">POMODORO TIMER</h1>
+    
+    <div class="pomodoro-container">
+      <div id="time-container" class="time-container clickable-timer">
+        <span id="timer-display">25:00</span>
+      </div>
+      
+      <div class="buttons">
+        <button id="stb">START</button>
+        <button id="spb">STOP</button>
+        <button id="rtb">RESET</button>
+      </div>
+    </div>
+    
+    <div id="upgrade-message" class="upgrade-message">
+        <p>Your free session is over! <a href="upgrade.html">Upgrade now</a> to continue.</p>
+    </div>
+
+    <div class="music-player">
+      <h3>Focus Sounds</h3>
+      <button id="show-sounds-btn" class="playlist-button">Show Sounds</button>
+    </div>
+
+    <div id="playlist-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="close-playlist">&times;</span>
+        <h2>Choose a Focus Sound</h2>
+        <div class="sound-list">
+          <button class="sound-button free-sound" data-sound="rain">Rain</button>
+          <button class="sound-button free-sound" data-sound="cafe">Cafe</button>
+          <button class="sound-button locked-sound" data-sound="forest">Forest</button>
+          <button class="sound-button locked-sound" data-sound="waves">Waves</button>
+          <button class="sound-button locked-sound" data-sound="stream">Stream</button>
+        </div>
+        <audio id="audio-player" loop></audio>
+      </div>
+    </div>
+
+  </div>
+  
+  <!-- Custom Alert -->
+<div id="custom-alert" class="custom-alert">
+  <p id="custom-alert-text">Message goes here</p>
+  <button onclick="closeCustomAlert()">OK</button>
+</div>
+<div id="custom-alert-overlay" class="custom-alert-overlay"></div>
+  
+  
+  <script src="pomodoro-cc.js"></script>
+  <script src="Pomodoro.js"></script>
+</body>
+</html>

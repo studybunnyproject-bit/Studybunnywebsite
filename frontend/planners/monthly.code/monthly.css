@@ -1,0 +1,131 @@
+body {
+  font-family: fantasy, sans-serif;
+  background: rgb(246,222,250);
+  margin: 0;
+  padding: 20px;
+}
+
+.planner {
+  max-width: 1000px;
+  margin: auto;
+  background: rgb(224, 243, 255);
+  padding: 20px;
+  border: solid 3px rgb(252, 119, 210);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  color: rgb(120, 80, 160);
+}
+
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#monthYear {
+  margin: 0 10px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.calendar-grid div {
+  background: white;
+  padding: 10px;
+  height: 80px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 0.9em;
+  position: relative;
+}
+
+.calendar-grid div span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: bold;
+  color: rgb(120, 80, 160);
+}
+
+.month-sections {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.month-sections textarea {
+  width: 260px;
+  height: 100px;
+  padding: 10px;
+  resize: vertical;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: fantasy,sans-serif;
+}
+
+#monthlyTodoInput {
+  width: calc(100% - 60px);
+  padding: 8px;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: fantasy,sans-serif;
+}
+
+#monthlyTodoList li {
+  background: #ddd;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.habits label {
+  display: block;
+  margin: 10px 0;
+  margin-right: 16px;
+}
+
+.habits input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+#prevMonth,#nextMonth{
+  background-color: rgb(252, 119, 210);
+  border: transparent;
+  border-radius: 3px;
+  font-weight: bold;
+  color: rgb(120, 80, 160);
+}
+
+#addb{
+  background-color: rgb(252, 119, 210);
+  border: transparent;
+  border-radius: 3px;
+  color: rgb(120, 80, 160);
+  font-family: fantasy,sans-serif;
+  margin-top: 10px;
+}
+
+.habits p{
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-right: 16px;
+}

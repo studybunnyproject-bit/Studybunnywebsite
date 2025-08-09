@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Planner</title>
+  <link rel="stylesheet" href="monthly.css">
+</head>
+<body>
+  <div class="planner">
+    <h1>Monthly Planner</h1>
+
+    <div class="month-navigation">
+      <button id="prevMonth">&#8592;</button>
+      <h2 id="monthYear"></h2>
+      <button id="nextMonth">&#8594;</button>
+    </div>
+
+    <div class="calendar-grid" id="calendar"></div>
+
+    <section class="month-sections">
+      <div class="goals">
+        <h2>Monthly Goals</h2>
+        <textarea placeholder="List your goals for this month..."></textarea>
+      </div>
+
+      <div class="important-dates">
+        <h2>Important Dates</h2>
+        <textarea placeholder="E.g. birthdays, deadlines, etc..."></textarea>
+      </div>
+
+      <div class="monthly-tasks">
+        <h2>Monthly To-Do List</h2>
+        <ul id="monthlyTodoList"></ul>
+        <input type="text" id="monthlyTodoInput" placeholder="New task">
+        <button id="addb" onclick="addMonthlyTask()">Add</button>
+      </div>
+
+      <div class="habit-tracker">
+        <h2>Habit Tracker</h2>
+        <div class="habits">
+          
+          
+          <p class=>have you been drinking water constantly throughout this month?</p>
+          <label><input type="radio" name="water">yes</label>
+          <label><input type="radio" name="water">no</label>
+          
+          
+          
+          <p>have you been working out constantly throughout this month?</p>
+          <label><input type="radio" name="working">yes</label>
+          <label><input type="radio" name="working">no</label>
+          
+          
+          
+          <p>have you been reading constantly throughout this month?</p>
+          <label><input type="radio" name="reading">yes</label>
+          <label><input type="radio" name="reading">no</label>
+          
+        
+        
+         <p>have you been studying regularly throughout this month?</p>
+          <label><input type="radio" name="studying">yes</label>
+          <label><input type="radio" name="studying">no</label>
+          
+        
+          <p>has your mental health improved throughout this month?</p>
+          <label><input type="radio" name="health">yes</label>
+            <label><input type="radio" name="health">no</label>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="monthly.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Water Intake Tracker</title>
+  <link rel="stylesheet" href="water.css">
+</head>
+<body>
+  <div class="container">
+    <h1> Water Tracker</h1>
+
+    <label for="cupSize">My Cup Size (ml):</label>
+    <br><br>
+    <input type="number" id="cupSize" placeholder="e.g. 250" min="50" />
+
+    <p id="progress-text">Total: 0 ml</p>
+
+    <div class="buttons">
+      <button onclick="addCup()">+ Add My Cup</button>
+      <button onclick="resetTracker()">🔄 Reset</button>
+    </div>
+
+    <div class="cup-display" id="cup-display"></div>
+  </div>
+
+  <script src="water.js"></script>
+</body>
+</html>

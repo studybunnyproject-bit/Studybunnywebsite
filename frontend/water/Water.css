@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  background: rgb(246, 222, 250);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: rgb(224, 243, 255);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 2px solid rgb(252, 119, 210);
+  text-align: center;
+  width: 280px;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  color: rgb(120, 80, 160);
+  font-family: fantasy,sans-serif;
+}
+
+input[type="number"] {
+  padding: 8px;
+  width: 80%;
+  margin-bottom: 1rem;
+  border: 2px solid lightgray;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#progress-text {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(120, 80, 160);
+  font-family: fantasy,sans-serif;
+}
+
+.buttons button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(252, 119, 210);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: fantasy,sans-serif;
+}
+
+.buttons button:hover {
+  background-color: rgb(252, 119, 210);
+}
+
+.cup-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cup-icon {
+  width: 30px;
+  height: 40px;
+  margin: 4px;
+  background: url('https://cdn-icons-png.flaticon.com/512/1149/1149921.png') no-repeat center;
+  background-size: contain;
+}
+
+#cupSize,label{
+  font-family: fantasy,sans-serif;
+}
+
+label{
+  margin-bottom: 2px;
+}

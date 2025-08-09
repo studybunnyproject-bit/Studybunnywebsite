@@ -1,0 +1,79 @@
+body {
+  font-family: fantasy, sans-serif;
+  background-color: rgb(246, 222, 250);
+  color: rgb(120, 80, 160);
+  padding: 20px;
+}
+
+.weekly-container {
+  max-width: 700px;
+  margin: auto;
+  background-color: #e8f1ff;
+  border: 3px solid rgb(252, 119, 210);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.week-days {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.week-days div {
+  flex: 1 1 calc(14% - 10px);
+  margin: 5px;
+  background-color: #f0dfff;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.week-days div:hover {
+  background-color: #d8bfff;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: fantasy, sans-serif;
+  margin-top: 10px;
+  margin-left:  -10px;
+}
+
+button {
+  padding: 8px 12px;
+  margin-top: 10px;
+  background-color: rgb(252, 119, 210);
+  border: none;
+  border-radius: 5px;
+  font-family: fantasy;
+  color: rgb(120,80,160);
+}
+
+ul {
+  list-style-type: disc;
+  padding: 0;
+}
+
+ul li {
+  background-color: white;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+  font-family: fantasy;
+}
+
+#weeklyGoal,#weeklyNotes{
+  height: 100px;
+}

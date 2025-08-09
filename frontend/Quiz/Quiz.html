@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="Quiz.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz Creator</h1>
+
+    <!-- Input Section -->
+    <div id="input-section">
+      <form id="quiz-form">
+        <input type="text" id="question" placeholder="Enter question" required />
+        <input type="text" id="answer" placeholder="Enter correct answer" required />
+        <button type="submit">Save Question</button>
+      </form>
+      <br>
+      <label for="custom-timer">Set time per question (seconds):</label><br>
+<input type="number" id="custom-timer" value="30" min="5" max="300" />
+      
+      <button id="start-quiz">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-section" style="display:none;">
+      <h2 id="quiz-question"></h2>
+      <input type="text" id="user-answer" placeholder="Your answer" />
+      <button id="submit-answer">Submit</button>
+      <p id="timer">⏳ Time left: <span id="time">30</span>s</p>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result-section" style="display:none;">
+      <h2>Score: <span id="score"></span></h2>
+      <h3>Percentage: <span id="percentage"></span>%</h3>
+      <h3>Grade: <span id="grade"></span></h3>
+      <button onclick="location.reload()">Try Again</button>
+    </div>
+  </div>
+  
+
+  <script src="Quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+body {
+  font-family: fantasy, sans-serif;
+  background-color: rgb(246, 222, 250);
+  margin: 0;
+  padding: 20px;
+  color: rgb(120, 80, 160);
+}
+
+.planner {
+  max-width: 700px;
+  margin: auto;
+  background-color: rgb(224,243 ,255 );
+  padding: 20px;
+  border: 3px solid rgb(252, 119, 210);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: fantasy,sans-serif;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+section {
+  margin: 20px 0;
+}
+
+#currentDate {
+  text-align: center;
+  font-size: 1.2em;
+  color: #555;
+}
+
+#timeBlocks div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #eef;
+  border-radius: 5px;
+  font-family: fantasy,sans-serif;
+}
+
+#timeBlocks input,
+#timeBlocks span {
+  font-family: fantasy;
+}
+
+.todo input[type="text"] {
+  width: calc(100% - 60px);
+  padding: 8px;
+  margin-top: 10px;
+  font-family: fantasy,sans-serif;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#todoInput::placeholder {
+  background-color: white;
+  
+}
+
+.todo button {
+  padding: 8px 10px;
+  margin-left: 5px;
+  background-color: rgb(252, 119, 210);
+  border: transparent 2px;
+  border-radius: 3px;
+  color: rgb(120, 80, 160);
+  font-family: fantasy,sans-serif;
+  margin-top: 10px;
+}
+
+#todoList li {
+  background: white;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: fantasy,sans-serif;
+}
+
+textarea {
+  width: 250px;
+  height: 150px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-family: fantasy,sans-serif;
+}

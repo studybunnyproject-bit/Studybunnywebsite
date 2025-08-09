@@ -1,0 +1,205 @@
+body {
+    background-color: rgb(246, 222, 250);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+#h1 {
+    font-family: fantasy, sans-serif;
+    color: rgb(120, 80, 160);
+    margin-bottom: 30px;
+}
+
+.pomodoro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid rgb(252, 119, 210);
+    background-color: rgb(224, 243, 255);
+}
+
+.clickable-timer {
+    cursor: pointer;
+}
+
+#timer-display {
+    font-size: 48px;
+    color: rgb(120, 80, 160);
+    font-family: fantasy, sans-serif;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#stb, #spb, #rtb {
+    background-color: rgb(224, 243, 255);
+    border: 3px solid rgb(252, 119, 210);
+    color: rgb(120, 80, 160);
+    border-radius: 5px;
+    height: 70px;
+    width: 100px;
+    font-size: 20px;
+    font-family: fantasy, sans-serif;
+    cursor: pointer;
+}
+
+.music-player {
+    margin-top: 50px;
+}
+
+.music-player h3 {
+    color: rgb(120, 80, 160);
+    font-family: fantasy, sans-serif;
+}
+
+.playlist-button {
+    background-color: rgb(252, 119, 210);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: fantasy, sans-serif;
+    cursor: pointer;
+}
+
+.sound-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sound-button {
+    background-color: rgb(224, 243, 255);
+    border: 2px solid rgb(252, 119, 210);
+    color: rgb(120, 80, 160);
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-family: fantasy, sans-serif;
+    cursor: pointer;
+}
+
+.locked-sound {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upgrade-message {
+    margin-top: 20px;
+    display: none;
+}
+
+.upgrade-message p {
+    color: rgb(120, 80, 160);
+    font-size: 18px;
+}
+
+.upgrade-message a {
+    color: rgb(252, 119, 210);
+    font-family: fantasy, sans-serif;
+    text-decoration: none;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: rgb(246, 222, 250);
+    margin: 10% auto;
+    padding: 20px;
+    border: 3px solid rgb(252, 119, 210);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Custom Alert Box */
+.custom-alert {
+  display: none;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(246, 222, 250);
+  border: 3px solid rgb(252, 119, 210);
+  padding: 20px 30px;
+  border-radius: 10px;
+  z-index: 1001;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-family: fantasy, sans-serif;
+  color: rgb(120, 80, 160);
+}
+
+.custom-alert button {
+  margin-top: 15px;
+  background-color: rgb(252, 119, 210);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: fantasy, sans-serif;
+}
+
+.custom-alert-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}

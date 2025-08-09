@@ -1,0 +1,121 @@
+body {
+  font-family: fantasy, sans-serif;
+  background: rgb(246, 222, 250);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  width: 280px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: solid rgb(252, 119, 210);
+}
+
+h1 {
+  text-align: center;
+  color: rgb(120, 80, 160);
+}
+
+.trackers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  color: rgb(120, 80, 160);
+}
+
+.circle svg {
+  transform: rotate(-90deg);
+  width: 120px;
+  height: 120px;
+  color: rgb(120, 80, 160);
+}
+
+.circle circle {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  color: rgb(120, 80, 160);
+}
+
+.bg {
+  stroke: #e6e6e6;
+}
+
+.fg {
+  stroke: #00bfff;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.circle-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(120, 80, 160);
+}
+
+.circle-label h3 {
+  margin: 0;
+  font-size: 15px;
+  color: rgb(120, 80, 160);
+}
+
+.circle-label p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+  color: rgb(120, 80, 160);
+}
+
+.summary-buttons {
+  text-align: center;
+  margin: 30px 0 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: fantasy,sans-serif;
+}
+
+button:hover {
+  background: #005fa3;
+}
+
+.summary-box {
+  background: #e6f7ff;
+  padding: 15px;
+  margin: 10px 30px;
+  border-radius: 8px;
+  display: none;
+}
+
+.improvement {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  font-family: fantasy,sans-serif;
+  color: rgb(120, 80, 160);
+}

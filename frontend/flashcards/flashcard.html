@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcard App</title>
+  <link rel="stylesheet" href="flashcard.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Flashcard Creator</h1>
+
+    <div class="card-form">
+      <input type="text" id="questionInput" placeholder="Enter question" />
+      <input type="text" id="answerInput" placeholder="Enter answer" />
+      <button onclick="addFlashcard()">Add Flashcard</button>
+      <button onclick="startStudy()">Start Study Mode</button>
+    </div>
+
+    <div id="flashcardList"></div>
+  </div>
+
+  <!-- Study Mode -->
+  <div class="study-container" id="studyContainer" style="display: none;">
+    <div class="study-header">
+      <span id="progress"></span>
+    </div>
+
+    <div class="flashcard" id="studyCard" onclick="flipCard()">
+      <div class="card-inner">
+        <div class="card-front" id="cardFront"></div>
+        <div class="card-back" id="cardBack"></div>
+      </div>
+    </div>
+
+    <div class="study-actions">
+      <button onclick="markCorrect()">✔ I got it right</button>
+      <button onclick="markWrong()">✖ I got it wrong</button>
+    </div>
+
+    <div id="score" class="score"></div>
+  </div>
+
+  <!-- Custom Alert -->
+  <div id="customAlert" class="custom-alert">This is an alert</div>
+
+  <script src="flashcard.js"></script>
+</body>
+</html>

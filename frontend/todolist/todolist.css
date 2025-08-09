@@ -1,0 +1,132 @@
+body{
+  background-color: rgb(246, 222, 250);
+}
+
+.todo-container{
+  max-width: 400px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border: 3px rgb(252, 119, 210) solid;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#h1{
+  font-family: fantasy,sans-serif;
+  text-align: center;
+  color: rgb(120, 80, 160);
+}
+
+.input-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#task{
+  width: 200px;
+  height: 30px;
+  background-color: rgb(224, 243, 255);
+  border: 5px solid transparent;
+  border-radius: 5px;
+  text-align: center;
+  font-family: fantasy,sans-serif;
+}
+
+#bn{
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgb(252,119 , 210);
+  border-radius: 20px;
+  background-color: rgb(252,119 , 210);
+  text-align: center;
+  font-family: fantasy,sans-serif;
+  color: rgb(120, 80, 160);
+  font-size: 20px;
+}
+
+.plan-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  font-family: fantasy, sans-serif;
+}
+
+select {
+  padding: 5px;
+  font-family: fantasy, sans-serif;
+  background-color: rgb(224, 243, 255);
+  border: 2px solid rgb(252, 119, 210);
+  border-radius: 5px;
+  color: rgb(120, 80, 160);
+}
+
+.warning-msg {
+  color: red;
+  text-align: center;
+  font-family: fantasy, sans-serif;
+  margin-top: 10px;
+}
+
+.delete-btn{
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgb(252,119 , 210);
+  border-radius: 20px;
+  background-color: rgb(252,119 , 210);
+  text-align: center;
+  font-family: fantasy,sans-serif;
+  color: rgb(120, 80, 160);
+  font-size: 20px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(224, 243, 255); /* match input background */
+  border: 3px solid transparent;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  font-family: fantasy, sans-serif;
+  color: rgb(120, 80, 160);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+/* New style for the "done" button */
+.done-btn {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgb(252, 119, 210);
+  border-radius: 20px;
+  background-color: rgb(252, 119, 210);
+  text-align: center;
+  font-family: fantasy, sans-serif;
+  color: rgb(120, 80, 160);
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+/* Style for the button container inside each task */
+.task-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* New style for completed tasks */
+.completed {
+  color: gray;
+  text-decoration: line-through;
+  opacity: 0.7;
+  background-color: #f0f0f0;
+}

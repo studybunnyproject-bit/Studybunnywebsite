@@ -1,0 +1,282 @@
+body {
+    background-color: rgb(246, 222, 250);
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: rgb(120, 80, 160);
+    text-align: center;
+    font-family: fantasy,sans-serif;
+}
+
+hr{
+    background-color: rgb(252, 119, 210);
+    height: 3px;
+    border: none;
+}
+
+.menu-btn {
+  width: 30px;
+  cursor: pointer;
+  padding: 10px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+}
+
+.menu-btn .bar {
+  width: 30px;
+  height: 4px;
+  background-color: rgb(180, 140, 200);
+  margin: 4px 0;
+  margin-left:  -5px;
+  transition: 0.1s;
+  border-radius: 4px;
+}
+
+.menu-btn:hover .bar {
+  background-color: powderblue;
+}
+
+.vertical-menu {
+  height: 300px;
+  max-height: 350px;
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background-color: rgb(255, 220, 240);
+  border: solid rgb(252, 119, 210);
+  border-radius: 0px;
+  overflow-y: auto;
+  z-index: 1000;
+  
+}
+
+/* Nicer vertical scrollbar */
+.vertical-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vertical-menu::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.vertical-menu::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+/* Firefox support */
+.vertical-menu {
+  scrollbar-width: thin;
+  scrollbar-color: #bbb #f0f0f0;
+}
+
+
+.vertical-menu a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: rgb(120,80,160);
+  font-weight: bold;
+  border-bottom: 1px solid #f0cce2;
+  font-family: fantasy,sans-serif;
+}
+
+.vertical-menu a:hover {
+  background-color: #ffd6e0;
+}
+
+
+/*login*/
+.login-popup {
+  display: none;
+  background-color: #FDF4FA;
+  border: 2px solid #F0F8FF;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(200, 220, 255, 0.2);
+  width: 250px;
+  margin: 20px auto;
+  text-align: center;
+  position: relative;
+}
+
+.login-popup input {
+  width: 90%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: fantasy,sans-serif;
+}
+
+.login-popup button,.login-btn {
+  background-color: rgb(180, 140, 200);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  border: solid rgb(120, 80, 160);
+  cursor: pointer;
+  font-family: fantasy,sans-serif;
+  padding: 10px;
+  margin-left: 8px;
+}
+
+.login-btn{
+  position: relative;
+  left:  -90px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: #333;
+}
+
+
+
+#loginMessage {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+h3{
+  font-family: fantasy,sans-serif;
+  color: rgb(120, 80, 160);
+}
+
+
+.outfit-panel {
+  position: relative;
+  display: none;
+  background: #fff0f8;
+  border: 2px solid #dab8d8;
+  padding: 15px;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.color-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.category-buttons button {
+  margin: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: #e0bbf9;
+  border: none;
+  cursor: pointer;
+  font-family: fantasy;
+}
+
+.category-panel {
+  display: none;
+  margin-top: 5px;
+  
+}
+
+.category-panel img {
+  width: 60px;
+  margin: 5px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 6px;
+}
+
+.category-panel img:hover {
+  border-color: #a97fb4;
+}
+
+#outfit-b{
+  background-color: rgb(180, 140, 200);
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  border: solid rgb(120, 80, 160);
+  cursor: pointer;
+  font-family: fantasy,sans-serif;
+  padding: 10px;
+  position: relative;
+  top: 480px;
+  left: 250px;
+}
+
+#cc-widget {
+  position: relative;
+  bottom: 40px;
+  left: 280px;
+  background: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: solid rgb(120, 80, 160);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999;
+  width: 50px;
+}
+
+#cc-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 3px;
+}
+
+#cc-amount {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#bunny-img{
+  width: 350px;
+  height: 350px;
+  position: relative;
+  left: 10px;
+}
+
+
+
+#bunny-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#bunny-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  width: 310px;
+  height: 310px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  pointer-events: none;
+  z-index: 2;
+}

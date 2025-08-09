@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>TO-DO-LIST</title>
+    <link rel="stylesheet" href="todolist.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700& =Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="todo-container">
+      <h1 id="h1">TO DO LIST</h1>
+    
+    
+      <div class="input-container">
+        <input type="text" id="task" placeholder="TASK">
+      </div>
+      <div class="button-container">
+        <button id="bn" onclick="addTask()">+</button>
+        <div id="taskList" class="task-list"></div>
+        
+        <p id="taskLimitMsg" class="warning-msg"></p>
+        
+      </div>
+    </div>
+    
+    
+    <script src="todolist-cc.js"></script>
+    <script src="todolist.js"></script>
+  </body>
+</html>

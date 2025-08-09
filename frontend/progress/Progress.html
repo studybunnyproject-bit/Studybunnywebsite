@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress Tracker</title>
+  <link rel="stylesheet" href="Progress.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Progress Tracker</h1>
+
+    <div class="trackers">
+      <div class="circle" data-label="Study hours" data-id="study" data-value="0"></div>
+      <div class="circle" data-label="Water" data-id="water" data-value="0"></div>
+      <div class="circle" data-label="Pomodoro" data-id="pomodoro" data-value="0"></div>
+      <div class="circle" data-label="Quiz" data-id="quiz" data-value="0"></div>
+      <div class="circle" data-label="Flashcards" data-id="flashcard" data-value="0"></div>
+      <div class="circle" data-label="Mood" data-id="mood" data-value="0"></div>
+    </div>
+
+    <div class="summary-buttons">
+      <button onclick="showSummary('week')">Weekly Summary</button>
+      <button onclick="showSummary('month')">Monthly Summary</button>
+    </div>
+
+    <div id="weekly-summary" class="summary-box"></div>
+    <div id="monthly-summary" class="summary-box"></div>
+
+    <div class="improvement">
+      <h2>Did You Improve?</h2>
+      <p id="improvement-result">Loading...</p>
+    </div>
+  </div>
+
+  <script src="Progress.js"></script>
+</body>
+</html>

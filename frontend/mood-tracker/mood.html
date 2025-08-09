@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mood Tracker</title>
+  <link rel="stylesheet" href="mood.css">
+</head>
+<body>
+  <div class="container">
+    <h1>My Mood Tracker</h1>
+    <p>Select your mood for today:</p>
+
+    <div class="mood-options">
+  <div class="mood-circle">
+    <img src="images/happy.png" alt="Happy" data-mood="Happy"></div><br>
+    <p>happy</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/sad.png" alt="Sad" data-mood="Sad"></div><br>
+    <p>sad</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/angry.png" alt="Angry" data-mood="Angry"></div><br>
+    <p>angry</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/excited.png" alt="Excited" data-mood="Excited"></div><br>
+    <p>excited</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/tired.png" alt="Tired" data-mood="Tired"></div><br>
+    <p>tired</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/bored.png" alt="Bored" data-mood="Bored"></div><br>
+    <p>bored</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/confident.png" alt="Loved" data-mood="confident"></div><br>
+    <p>confident</p>
+    <br>
+  <div class="mood-circle">
+    <img src="images/stressed.png" alt="stressed" data-mood="stressed"></div><br>
+    <p>stressed</p>
+</div>
+    
+    <div class="reason-section">
+  <h3>Why do you feel this way?</h3>
+  <textarea id="moodReason" placeholder="Write here..."></textarea>
+  <button id="saveReason">Save Reason</button>
+</div>
+
+
+    <div id="mood-log">
+      <h2>Today’s Mood:</h2>
+      <p id="selectedMood">No mood selected yet.</p>
+      <h4>Reason:</h4>
+<p id="savedReason">No reason written yet.</p>
+    </div>
+  </div>
+
+  <script src="mood.js"></script>
+</body>
+</html>

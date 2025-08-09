@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="mainpage.css">
+</head>
+
+<body>
+  <h1>study bunny</h1>
+  <hr>
+  <div class="menu-btn" id="menuBtn">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+<div class="vertical-menu" id="verticalMenu">
+  <a href="mainpage.html">HOME</a>
+  <a href="planners/weekly.code/weekly.html">ABOUT</a>
+  <a href="flashcards/flashcard.html">DONATION</a>
+  <a href="planners/planner.html">PLANNER</a>
+  <a href="pomodoro/pomodoro.html">POMODORO</a>
+  <a href="todolist/todolist.html">TO DO-LIST</a>
+  <a href="notes/notes.html">NOTES</a>
+  <a href="Quiz/Quiz.html">QUIZZES</a>
+  <a href="flashcards/flashcard.html">FLASHCARDS</a>
+  <a href="calendar/calendar.html">CALENDAR</a>
+  <a href="calculator/calculator.html">CALCULATOR</a>
+  <a href="mood-tracker/mood.html">MOOD TRACKER</a>
+  <a href="water/Water.html">WATER-INTAKE TRACKER</a>
+  <a href="progress/Progress.html">PROGRESS TRACKER</a>
+</div>
+
+
+<!-- Button to open outfit panel -->
+<button id="outfit-b" onclick="toggleOutfitPanel()">Customize</button>
+
+<!-- Outfit Popup -->
+<div id="outfitPanel" class="outfit-panel">
+  <h3>Choose Skin Color</h3>
+  <div class="color-options">
+    <div class="color-circle"style="background:white;" onclick="selectBunnyColor('white')"></div>
+    <div class="color-circle"style="background: #8c8c8c;" onclick="selectBunnyColor('grey')"></div>
+    <div class="color-circle"style="background: #ffd2e7;" onclick="selectBunnyColor('pink')"></div>
+    <div class="color-circle"style="background:#e6f4ff;" onclick="selectBunnyColor('blue')"></div>
+     <div class="color-circle"style="background:#9e745c;" onclick="selectBunnyColor('brown')"></div>
+      <div class="color-circle" style="background:#b99e83;" onclick="selectBunnyColor('beige')"></div>
+       <div class="color-circle" style="background:#fddfff;" onclick="selectBunnyColor('purple')"></div>
+        <div class="color-circle" style="background:#e6ffd9;" onclick="selectBunnyColor('green')"></div>
+    
+  </div>
+
+   <h3>Choose Outfit</h3>
+  <div class="category-buttons">
+    <button onclick="showCategory('shirts')">Shirts</button>
+    <button onclick="showCategory('skirts')">Skirts</button>
+    <button onclick="showCategory('dresses')">Dresses</button>
+    <button onclick="showCategory('accessories')">Accessories</button>
+  </div>
+
+  <!-- Each category section -->
+  
+  <div id="shirts" class="category-panel">
+    <img src="bunny-outfits/shirt1.png" onclick="selectOutfit('shirt1.png')">
+    <img src="bunny-outfits/shirt2.png" onclick="selectOutfit('shirt2.png')">
+  </div>
+  <!-- Add similar for skirts, dresses, accessories -->
+  <span class="close-btn" onclick="closeOutfitPanel()">&times;</span>
+  </div>
+
+
+ 
+
+
+
+<div class="login-popup" id="loginPopup">
+  <h3>Login</h3>
+  <input type="text" id="username" placeholder="Username" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="fakeLogin()">Submit</button>
+  <p id="loginMessage"></p>
+  <span class="close-btn" onclick="closeLogin()">&times;</span>
+</div>
+
+<button class="login-btn" onclick="toggleLogin()">Login</button>
+  
+  
+  
+  <!-- CC Widget (coin in corner) -->
+<div id="cc-widget" onclick="openCCPage()">
+  <img src="cc.png" alt="CC" id="cc-icon">
+  <span id="cc-amount">0.00</span>
+</div>
+
+<div id="bunny-wrapper">
+  <img id="bunny-img" src="bunny-body/white_neutral.png">
+</div>
+
+<!-- CC logic lives in mainpage.js -->
+  
+  
+  <script src="mainpage.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Calendar</title>
+  <link rel="stylesheet" href="Calendar.css">
+</head>
+<body>
+  <div class="calendar-wrapper">
+    <div class="calendar-container">
+    <div class="header">
+      <button id="prev">&lt;</button>
+      <h2 id="monthYear"></h2>
+      <button id="next">&gt;</button>
+    </div>
+
+    <div class="time-now" id="timeNow"></div>
+
+
+    <div class="days-name">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+      <div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+
+    <div class="calendar-days" id="calendarDays"></div>
+    </div>
+    <br>
+    <div class="mini-info" id="miniInfo">
+    💡 Loading a fact...
+    </div>
+    
+  <div id="eventModal" class="modal">
+  <div class="modal-content">
+    <h3 id="eventDateTitle"> Events</h3>
+    <textarea id="eventText" rows="4" placeholder="Write your event here..."></textarea>
+    <div class="modal-buttons">
+      <button onclick="saveEvent()">Save</button>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+    
+  </div>
+  <script src="Calendar.js"></script>
+</body>
+</html>
