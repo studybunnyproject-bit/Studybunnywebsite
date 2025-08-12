@@ -1,0 +1,101 @@
+{
+  "version": 2,
+  "public": true,
+  "github": {
+    "silent": true
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/frontend/mainpage.html"
+    },
+    {
+      "source": "/calculator",
+      "destination": "/frontend/calculator/calculator.html"
+    },
+    {
+      "source": "/calendar",
+      "destination": "/frontend/calendar/calendar.html"
+    },
+    {
+      "source": "/flashcards",
+      "destination": "/frontend/flashcards/flashcard.html"
+    },
+    {
+      "source": "/mood-tracker",
+      "destination": "/frontend/mood-tracker/mood.html"
+    },
+    {
+      "source": "/notes",
+      "destination": "/frontend/notes/notes.html"
+    },
+    {
+      "source": "/planners",
+      "destination": "/frontend/planners/planner.html"
+    },
+    {
+      "source": "/planners/daily",
+      "destination": "/frontend/planners/daily.code/daily.html"
+    },
+    {
+      "source": "/planners/weekly",
+      "destination": "/frontend/planners/weekly.code/weekly.html"
+    },
+    {
+      "source": "/planners/monthly",
+      "destination": "/frontend/planners/monthly.code/monthly.html"
+    },
+    {
+      "source": "/pomodoro",
+      "destination": "/frontend/pomodoro/pomodoro.html"
+    },
+    {
+      "source": "/progress",
+      "destination": "/frontend/progress/progress.html"
+    },
+    {
+      "source": "/quiz",
+      "destination": "/frontend/Quiz/Quiz.html"
+    },
+    {
+      "source": "/todolist",
+      "destination": "/frontend/todolist/todolist.html"
+    },
+    {
+      "source": "/water",
+      "destination": "/frontend/water/Water.html"
+    },
+    {
+      "source": "/upgrade",
+      "destination": "/frontend/upgrade-page/upgrade.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

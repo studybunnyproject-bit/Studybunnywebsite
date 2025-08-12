@@ -2,42 +2,339 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Planner</title>
+  <meta name="description" content="Study Bunny Daily Planner - Plan your day with time blocks, tasks, and goals">
+  <meta name="keywords" content="daily planner, schedule, time blocks, tasks, goals, productivity">
+  
+  <title>Study Bunny Daily Planner</title>
+  
+  <link rel="stylesheet" href="../planner.css">
   <link rel="stylesheet" href="daily.css">
 </head>
+
 <body>
-  
-  <h2 id="selectedDate"></h2>
-  
-  <div class="planner">
-    <h1>Daily Planner</h1>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../planner.html" class="back-btn" aria-label="Back to planners">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Planners</span>
+    </a>
+    <div class="nav-actions">
+      <button type="button" class="nav-btn" id="todayBtn" aria-label="Go to today">
+        <span class="btn-icon" aria-hidden="true">📅</span>
+        <span class="btn-text">Today</span>
+      </button>
+    </div>
+  </nav>
 
-    <section class="date-display">
-      <p id="currentDate"></p>
-    </section>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="daily-header">
+      <div class="date-navigation">
+        <button type="button" class="nav-date-btn" id="prevDay" aria-label="Previous day">
+          <span aria-hidden="true">←</span>
+        </button>
+        <div class="date-display">
+          <h1 class="daily-title" id="selectedDate">Today</h1>
+          <p class="daily-subtitle" id="currentDate">Monday, January 1, 2024</p>
+        </div>
+        <button type="button" class="nav-date-btn" id="nextDay" aria-label="Next day">
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      
+      <div class="daily-stats">
+        <div class="stat-badge">
+          <span class="stat-icon" aria-hidden="true">✅</span>
+          <span class="stat-value" id="completedTasks">0</span>
+          <span class="stat-label">Done</span>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon" aria-hidden="true">📝</span>
+          <span class="stat-value" id="totalTasks">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-badge">
+          <span class="stat-icon" aria-hidden="true">⏰</span>
+          <span class="stat-value" id="scheduledTime">0h</span>
+          <span class="stat-label">Scheduled</span>
+        </div>
+      </div>
+    </header>
 
-    <section class="schedule">
-      <h2>Today's Schedule</h2>
-      <div id="timeBlocks"></div>
-    </section>
+    <div class="daily-container">
+      <!-- Time Blocks Section -->
+      <section class="time-blocks-section" aria-label="Time blocks schedule">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-icon" aria-hidden="true">⏰</span>
+            Time Schedule
+          </h2>
+          <div class="section-actions">
+            <button type="button" class="action-btn" id="addTimeBlockBtn">
+              <span class="btn-icon" aria-hidden="true">➕</span>
+              <span class="btn-text">Add Block</span>
+            </button>
+            <button type="button" class="action-btn" id="quickFillBtn">
+              <span class="btn-icon" aria-hidden="true">⚡</span>
+              <span class="btn-text">Quick Fill</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="time-blocks-container" id="timeBlocksContainer">
+          <div class="time-blocks-list" id="timeBlocksList" role="list">
+            <!-- Time blocks will be populated here -->
+          </div>
+          
+          <div class="time-blocks-empty" id="timeBlocksEmpty">
+            <div class="empty-icon" aria-hidden="true">⏰</div>
+            <h3 class="empty-title">No schedule set</h3>
+            <p class="empty-text">Add time blocks to organize your day</p>
+          </div>
+        </div>
+      </section>
 
-    <section class="todo">
-      <h2>To-Do List</h2>
-      <ul id="todoList"></ul>
-      <input type="text" id="todoInput" placeholder="New task">
-      <button onclick="addTask()">Add</button>
-    </section>
+      <!-- Tasks Section -->
+      <section class="tasks-section" aria-label="Daily tasks">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-icon" aria-hidden="true">📝</span>
+            Tasks & To-Do
+          </h2>
+          <div class="section-actions">
+            <button type="button" class="action-btn" id="addTaskBtn">
+              <span class="btn-icon" aria-hidden="true">➕</span>
+              <span class="btn-text">Add Task</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="task-input-container">
+          <form class="quick-task-form" id="quickTaskForm">
+            <input type="text" id="taskInput" class="task-input" placeholder="What needs to be done today?" maxlength="200">
+            <button type="submit" class="add-task-btn" aria-label="Add task">
+              <span aria-hidden="true">➕</span>
+            </button>
+          </form>
+        </div>
+        
+        <div class="tasks-container">
+          <div class="tasks-list" id="tasksList" role="list">
+            <!-- Tasks will be populated here -->
+          </div>
+          
+          <div class="tasks-empty" id="tasksEmpty">
+            <div class="empty-icon" aria-hidden="true">📝</div>
+            <h3 class="empty-title">No tasks yet</h3>
+            <p class="empty-text">Add your first task above to get started</p>
+          </div>
+        </div>
+      </section>
 
-    <section class="goals">
-      <h2>Today's Goal</h2>
-      <textarea id="dailyGoal" placeholder="Write your goal for today..."></textarea>
-    </section>
+      <!-- Goals & Notes Section -->
+      <section class="goals-notes-section" aria-label="Goals and notes">
+        <div class="goals-notes-grid">
+          <div class="goals-container">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span class="title-icon" aria-hidden="true">🎯</span>
+                Today's Goal
+              </h2>
+            </div>
+            
+            <div class="goal-input-container">
+              <textarea 
+                id="dailyGoal" 
+                class="goal-textarea"
+                placeholder="What's your main focus for today? Keep it simple and achievable..."
+                rows="4"
+                maxlength="300"
+              ></textarea>
+              <div class="goal-actions">
+                <button type="button" class="goal-btn save" id="saveGoalBtn">
+                  <span class="btn-icon" aria-hidden="true">💾</span>
+                  <span class="btn-text">Save Goal</span>
+                </button>
+                <span class="char-count" id="goalCharCount">0/300</span>
+              </div>
+            </div>
+            
+            <div class="goal-status" id="goalStatus">
+              <div class="status-item">
+                <span class="status-label">Status:</span>
+                <span class="status-value" id="goalStatusValue">Not set</span>
+              </div>
+            </div>
+          </div>
 
-    <section class="notes">
-      <h2>Notes</h2>
-      <textarea id="notes" placeholder="Write notes..."></textarea>
-    </section>
+          <div class="notes-container">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span class="title-icon" aria-hidden="true">📔</span>
+                Daily Notes
+              </h2>
+            </div>
+            
+            <div class="notes-input-container">
+              <textarea 
+                id="dailyNotes" 
+                class="notes-textarea"
+                placeholder="Capture important thoughts, insights, or reminders for today..."
+                rows="6"
+                maxlength="1000"
+              ></textarea>
+              <div class="notes-actions">
+                <button type="button" class="notes-btn save" id="saveNotesBtn">
+                  <span class="btn-icon" aria-hidden="true">💾</span>
+                  <span class="btn-text">Save Notes</span>
+                </button>
+                <span class="char-count" id="notesCharCount">0/1000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions-section" aria-label="Quick actions">
+        <div class="section-header">
+          <h2 class="section-title">Quick Actions</h2>
+        </div>
+        
+        <div class="actions-grid">
+          <button type="button" class="action-card" id="startPomodoroBtn">
+            <span class="action-icon" aria-hidden="true">🍅</span>
+            <span class="action-text">Start Pomodoro</span>
+          </button>
+          
+          <button type="button" class="action-card" id="openCalendarBtn">
+            <span class="action-icon" aria-hidden="true">📅</span>
+            <span class="action-text">Open Calendar</span>
+          </button>
+          
+          <button type="button" class="action-card" id="exportDayBtn">
+            <span class="action-icon" aria-hidden="true">📤</span>
+            <span class="action-text">Export Day</span>
+          </button>
+          
+          <button type="button" class="action-card" id="resetDayBtn">
+            <span class="action-icon" aria-hidden="true">🔄</span>
+            <span class="action-text">Reset Day</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Time Block Modal -->
+  <div class="modal-overlay" id="timeBlockModal" role="dialog" aria-labelledby="timeBlockModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="timeBlockModalTitle" class="modal-title">Add Time Block</h3>
+        <button type="button" class="close-btn" id="closeTimeBlockModal" aria-label="Close time block dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <form class="time-block-form" id="timeBlockForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="blockStartTime" class="form-label">Start Time</label>
+              <input type="time" id="blockStartTime" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="blockEndTime" class="form-label">End Time</label>
+              <input type="time" id="blockEndTime" class="form-input" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="blockActivity" class="form-label">Activity</label>
+            <input type="text" id="blockActivity" class="form-input" placeholder="What will you be doing?" maxlength="100" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="blockCategory" class="form-label">Category</label>
+            <select id="blockCategory" class="form-select">
+              <option value="study">📚 Study</option>
+              <option value="work">💼 Work</option>
+              <option value="break">☕ Break</option>
+              <option value="exercise">💪 Exercise</option>
+              <option value="meal">🍽️ Meal</option>
+              <option value="personal">👤 Personal</option>
+              <option value="other">📋 Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="blockNotes" class="form-label">Notes (optional)</label>
+            <textarea id="blockNotes" class="form-textarea" rows="3" placeholder="Additional details..." maxlength="200"></textarea>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="submit" class="btn btn--primary">
+              <span class="btn-icon" aria-hidden="true">➕</span>
+              <span class="btn-text">Add Time Block</span>
+            </button>
+            <button type="button" class="btn btn--secondary" id="cancelTimeBlock">
+              <span class="btn-text">Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Fill Modal -->
+  <div class="modal-overlay" id="quickFillModal" role="dialog" aria-labelledby="quickFillModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="quickFillModalTitle" class="modal-title">Quick Fill Schedule</h3>
+        <button type="button" class="close-btn" id="closeQuickFillModal" aria-label="Close quick fill dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="quick-fill-templates">
+          <h4 class="templates-title">Choose a template:</h4>
+          <div class="templates-grid">
+            <button type="button" class="template-btn" data-template="study">
+              <span class="template-icon" aria-hidden="true">📚</span>
+              <span class="template-name">Study Day</span>
+              <span class="template-desc">Focused study schedule</span>
+            </button>
+            
+            <button type="button" class="template-btn" data-template="work">
+              <span class="template-icon" aria-hidden="true">💼</span>
+              <span class="template-name">Work Day</span>
+              <span class="template-desc">Productive work schedule</span>
+            </button>
+            
+            <button type="button" class="template-btn" data-template="balanced">
+              <span class="template-icon" aria-hidden="true">⚖️</span>
+              <span class="template-name">Balanced Day</span>
+              <span class="template-desc">Study, work, and personal time</span>
+            </button>
+            
+            <button type="button" class="template-btn" data-template="exam">
+              <span class="template-icon" aria-hidden="true">📝</span>
+              <span class="template-name">Exam Prep</span>
+              <span class="template-desc">Intensive study schedule</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
   </div>
 
   <script src="daily.js"></script>

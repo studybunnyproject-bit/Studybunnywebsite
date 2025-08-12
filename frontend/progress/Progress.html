@@ -1,38 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Progress Tracker</title>
-  <link rel="stylesheet" href="Progress.css"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Progress Tracker - Monitor your learning progress with detailed analytics and goal tracking">
+  <meta name="keywords" content="progress, tracking, analytics, goals, productivity, learning">
+  
+  <title>Study Bunny Progress Tracker</title>
+  
+  <link rel="stylesheet" href="progress.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>Daily Progress Tracker</h1>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-    <div class="trackers">
-      <div class="circle" data-label="Study hours" data-id="study" data-value="0"></div>
-      <div class="circle" data-label="Water" data-id="water" data-value="0"></div>
-      <div class="circle" data-label="Pomodoro" data-id="pomodoro" data-value="0"></div>
-      <div class="circle" data-label="Quiz" data-id="quiz" data-value="0"></div>
-      <div class="circle" data-label="Flashcards" data-id="flashcard" data-value="0"></div>
-      <div class="circle" data-label="Mood" data-id="mood" data-value="0"></div>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="progress-header">
+      <h1 class="progress-title">Progress Tracker</h1>
+      <p class="progress-subtitle">Track your journey to success! 📈</p>
+    </header>
+
+    <div class="tracker-container">
+      <!-- Overview Cards -->
+      <section class="overview-section" aria-label="Progress overview">
+        <h2 class="section-title">Today's Overview</h2>
+        <div class="overview-grid">
+          <div class="metric-card study">
+            <div class="metric-header">
+              <span class="metric-icon" aria-hidden="true">📚</span>
+              <span class="metric-name">Study Time</span>
+            </div>
+            <div class="metric-value" id="studyTime">0h 0m</div>
+            <div class="metric-goal">Goal: <span id="studyGoal">2h</span></div>
+            <div class="metric-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="studyProgress"></div>
+              </div>
+              <span class="progress-percentage" id="studyPercentage">0%</span>
+            </div>
+          </div>
+
+          <div class="metric-card water">
+            <div class="metric-header">
+              <span class="metric-icon" aria-hidden="true">💧</span>
+              <span class="metric-name">Water Intake</span>
+            </div>
+            <div class="metric-value" id="waterIntake">0 cups</div>
+            <div class="metric-goal">Goal: <span id="waterGoal">8 cups</span></div>
+            <div class="metric-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="waterProgress"></div>
+              </div>
+              <span class="progress-percentage" id="waterPercentage">0%</span>
+            </div>
+          </div>
+
+          <div class="metric-card pomodoro">
+            <div class="metric-header">
+              <span class="metric-icon" aria-hidden="true">🍅</span>
+              <span class="metric-name">Pomodoros</span>
+            </div>
+            <div class="metric-value" id="pomodoroCount">0</div>
+            <div class="metric-goal">Goal: <span id="pomodoroGoal">8</span></div>
+            <div class="metric-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="pomodoroProgress"></div>
+              </div>
+              <span class="progress-percentage" id="pomodoroPercentage">0%</span>
+            </div>
+          </div>
+
+          <div class="metric-card mood">
+            <div class="metric-header">
+              <span class="metric-icon" aria-hidden="true">😊</span>
+              <span class="metric-name">Mood Score</span>
+            </div>
+            <div class="metric-value" id="moodScore">-</div>
+            <div class="metric-goal">Target: Positive</div>
+            <div class="mood-indicator" id="moodIndicator">
+              <div class="mood-emoji" id="moodEmoji">😐</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Section -->
+      <section class="charts-section" aria-label="Progress charts">
+        <div class="charts-header">
+          <h2 class="section-title">Progress Analytics</h2>
+          <div class="chart-controls">
+            <div class="time-range-selector">
+              <button type="button" class="range-btn active" data-range="7">7 Days</button>
+              <button type="button" class="range-btn" data-range="30">30 Days</button>
+              <button type="button" class="range-btn" data-range="90">90 Days</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3 class="chart-title">Study Time Trend</h3>
+            <div class="chart-container">
+              <canvas id="studyChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Activity Distribution</h3>
+            <div class="chart-container">
+              <canvas id="activityChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Weekly Performance</h3>
+            <div class="chart-container">
+              <canvas id="performanceChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3 class="chart-title">Goal Achievement</h3>
+            <div class="chart-container">
+              <div class="goals-grid" id="goalsGrid">
+                <!-- Goals will be populated here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Streak & Achievements -->
+      <section class="achievements-section" aria-label="Achievements and streaks">
+        <h2 class="section-title">Achievements & Streaks</h2>
+        <div class="achievements-grid">
+          <div class="streak-card">
+            <div class="streak-icon" aria-hidden="true">🔥</div>
+            <div class="streak-content">
+              <div class="streak-number" id="currentStreak">0</div>
+              <div class="streak-label">Day Streak</div>
+            </div>
+          </div>
+
+          <div class="streak-card">
+            <div class="streak-icon" aria-hidden="true">🎯</div>
+            <div class="streak-content">
+              <div class="streak-number" id="goalsAchieved">0</div>
+              <div class="streak-label">Goals Achieved</div>
+            </div>
+          </div>
+
+          <div class="streak-card">
+            <div class="streak-icon" aria-hidden="true">📊</div>
+            <div class="streak-content">
+              <div class="streak-number" id="totalSessions">0</div>
+              <div class="streak-label">Total Sessions</div>
+            </div>
+          </div>
+
+          <div class="streak-card">
+            <div class="streak-icon" aria-hidden="true">⭐</div>
+            <div class="streak-content">
+              <div class="streak-number" id="averageScore">0%</div>
+              <div class="streak-label">Avg Performance</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement Badges -->
+        <div class="badges-section">
+          <h3 class="subsection-title">Recent Achievements</h3>
+          <div class="badges-grid" id="badgesGrid">
+            <!-- Badges will be populated here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Goals Management -->
+      <section class="goals-section" aria-label="Goals management">
+        <div class="goals-header">
+          <h2 class="section-title">Your Goals</h2>
+          <button type="button" class="btn btn--primary" id="editGoalsBtn">
+            <span class="btn-icon" aria-hidden="true">⚙️</span>
+            <span class="btn-text">Edit Goals</span>
+          </button>
+        </div>
+
+        <div class="current-goals">
+          <div class="goal-item">
+            <span class="goal-label">Daily Study Time:</span>
+            <span class="goal-value" id="displayStudyGoal">2 hours</span>
+          </div>
+          <div class="goal-item">
+            <span class="goal-label">Daily Water Intake:</span>
+            <span class="goal-value" id="displayWaterGoal">8 cups</span>
+          </div>
+          <div class="goal-item">
+            <span class="goal-label">Daily Pomodoros:</span>
+            <span class="goal-value" id="displayPomodoroGoal">8 sessions</span>
+          </div>
+          <div class="goal-item">
+            <span class="goal-label">Weekly Study Days:</span>
+            <span class="goal-value" id="displayWeeklyGoal">5 days</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="actions-section" aria-label="Quick actions">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="actions-grid">
+          <button type="button" class="action-btn" id="exportDataBtn">
+            <span class="btn-icon" aria-hidden="true">📤</span>
+            <span class="btn-text">Export Data</span>
+          </button>
+          <button type="button" class="action-btn" id="resetDataBtn">
+            <span class="btn-icon" aria-hidden="true">🔄</span>
+            <span class="btn-text">Reset Progress</span>
+          </button>
+          <button type="button" class="action-btn" id="shareProgressBtn">
+            <span class="btn-icon" aria-hidden="true">📤</span>
+            <span class="btn-text">Share Progress</span>
+          </button>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <div class="summary-buttons">
-      <button onclick="showSummary('week')">Weekly Summary</button>
-      <button onclick="showSummary('month')">Monthly Summary</button>
-    </div>
+  <!-- Goals Edit Modal -->
+  <div class="modal-overlay" id="goalsModal" role="dialog" aria-labelledby="goalsModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="goalsModalTitle" class="modal-title">Edit Your Goals</h3>
+        <button type="button" class="close-btn" id="closeGoalsModal" aria-label="Close goals editor">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <form class="goals-form" id="goalsForm">
+          <div class="form-group">
+            <label for="goalStudyTime" class="form-label">Daily Study Time (hours)</label>
+            <input type="range" id="goalStudyTime" class="form-slider" min="0.5" max="8" step="0.5" value="2">
+            <span class="form-value" id="goalStudyTimeValue">2 hours</span>
+          </div>
 
-    <div id="weekly-summary" class="summary-box"></div>
-    <div id="monthly-summary" class="summary-box"></div>
+          <div class="form-group">
+            <label for="goalWaterIntake" class="form-label">Daily Water Intake (cups)</label>
+            <input type="range" id="goalWaterIntake" class="form-slider" min="4" max="16" step="1" value="8">
+            <span class="form-value" id="goalWaterIntakeValue">8 cups</span>
+          </div>
 
-    <div class="improvement">
-      <h2>Did You Improve?</h2>
-      <p id="improvement-result">Loading...</p>
+          <div class="form-group">
+            <label for="goalPomodoros" class="form-label">Daily Pomodoros</label>
+            <input type="range" id="goalPomodoros" class="form-slider" min="2" max="16" step="1" value="8">
+            <span class="form-value" id="goalPomodorosValue">8 sessions</span>
+          </div>
+
+          <div class="form-group">
+            <label for="goalWeeklyDays" class="form-label">Weekly Study Days</label>
+            <input type="range" id="goalWeeklyDays" class="form-slider" min="3" max="7" step="1" value="5">
+            <span class="form-value" id="goalWeeklyDaysValue">5 days</span>
+          </div>
+
+          <div class="modal-actions">
+            <button type="submit" class="btn btn--primary">
+              <span class="btn-icon" aria-hidden="true">💾</span>
+              <span class="btn-text">Save Goals</span>
+            </button>
+            <button type="button" class="btn btn--secondary" id="cancelGoalsBtn">
+              <span class="btn-text">Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
-  <script src="Progress.js"></script>
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
+  </div>
+
+  <script src="progress.js"></script>
 </body>
 </html>

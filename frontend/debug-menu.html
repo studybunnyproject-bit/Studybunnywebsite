@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Debug Test</title>
+  <style>
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 44px;
+      height: 44px;
+      background: #7850a0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 8px;
+    }
+    
+    .bar {
+      width: 100%;
+      height: 3px;
+      background: white;
+      margin: 4px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .vertical-menu {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: white;
+      border: 2px solid #dab8d8;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(200, 220, 255, 0.2);
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .vertical-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .vertical-menu a {
+      display: block;
+      padding: 16px 24px;
+      color: #7850a0;
+      text-decoration: none;
+      border-bottom: 1px solid #f0cce2;
+      font-weight: 500;
+      transition: all 0.15s ease-in-out;
+    }
+    
+    .vertical-menu a:hover {
+      background-color: #fff0f8;
+      color: #fc77d2;
+      transform: translateX(4px);
+    }
+    
+    body {
+      font-family: 'Comic Sans MS', fantasy, sans-serif;
+      background: #f6defa;
+      margin: 0;
+      padding: 60px 20px 20px;
+    }
+    
+    .debug-info {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐰 Menu Debug Test</h1>
+  
+  <!-- Test Menu Button -->
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </button>
+  
+  <!-- Test Menu -->
+  <div class="vertical-menu" id="verticalMenu">
+    <a href="mainpage.html">🏠 HOME</a>
+    <a href="planners/planner.html">📋 PLANNER</a>
+    <a href="pomodoro/pomodoro.html">🍅 POMODORO</a>
+    <a href="todolist/todolist.html">✅ TODO LIST</a>
+    <a href="notes/notes.html">📝 NOTES</a>
+    <a href="Quiz/Quiz.html">🧠 QUIZ</a>
+    <a href="flashcards/flashcard.html">🃏 FLASHCARDS</a>
+    <a href="calendar/calendar.html">📅 CALENDAR</a>
+    <a href="calculator/calculator.html">🧮 CALCULATOR</a>
+    <a href="mood-tracker/mood.html">😊 MOOD TRACKER</a>
+    <a href="water/Water.html">💧 WATER TRACKER</a>
+    <a href="progress/progress.html">📊 PROGRESS</a>
+  </div>
+  
+  <div class="debug-info">
+    <h2>🔍 Debug Instructions:</h2>
+    <p><strong>1.</strong> Click the hamburger menu (☰) above</p>
+    <p><strong>2.</strong> The menu should slide down</p>
+    <p><strong>3.</strong> Click any menu item to navigate</p>
+    <p><strong>4.</strong> Open browser console (F12) to check for errors</p>
+    
+    <h3>Status:</h3>
+    <p id="status">Click the menu button to test...</p>
+  </div>
+
+  <script>
+    // Simple menu toggle
+    let isMenuOpen = false;
+    
+    const menuBtn = document.getElementById('menuBtn');
+    const verticalMenu = document.getElementById('verticalMenu');
+    const status = document.getElementById('status');
+    
+    menuBtn.addEventListener('click', function() {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        verticalMenu.classList.add('show');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        status.innerHTML = '✅ Menu opened successfully!';
+        status.style.color = 'green';
+      } else {
+        verticalMenu.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        status.innerHTML = '❌ Menu closed';
+        status.style.color = 'orange';
+      }
+      
+      console.log('Menu toggled. Open:', isMenuOpen);
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (isMenuOpen && !menuBtn.contains(e.target) && !verticalMenu.contains(e.target)) {
+        isMenuOpen = false;
+        verticalMenu.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        status.innerHTML = '🔄 Menu closed (clicked outside)';
+        status.style.color = 'blue';
+      }
+    });
+    
+    console.log('Debug menu script loaded successfully!');
+  </script>
+</body>
+</html>

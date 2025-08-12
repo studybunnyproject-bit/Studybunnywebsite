@@ -2,45 +2,186 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Basic Calendar</title>
-  <link rel="stylesheet" href="Calendar.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Calendar - Organize your study schedule and track important dates">
+  <meta name="keywords" content="calendar, schedule, study, planning, events">
+  
+  <title>Study Bunny Calendar</title>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="calendar.css">
 </head>
+
 <body>
-  <div class="calendar-wrapper">
-    <div class="calendar-container">
-    <div class="header">
-      <button id="prev">&lt;</button>
-      <h2 id="monthYear"></h2>
-      <button id="next">&gt;</button>
-    </div>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-    <div class="time-now" id="timeNow"></div>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="calendar-header">
+      <h1 class="calendar-title">Study Calendar</h1>
+      <p class="calendar-subtitle">Plan your study sessions and track important dates</p>
+    </header>
 
+    <div class="calendar-wrapper">
+      <!-- Calendar Widget -->
+      <section class="calendar-section" aria-label="Interactive calendar">
+        <div class="calendar-container" role="application" aria-label="Calendar view">
+          <!-- Calendar Header -->
+          <header class="calendar-nav">
+            <button 
+              type="button" 
+              class="nav-btn nav-btn--prev" 
+              id="prevMonth"
+              aria-label="Previous month"
+            >
+              <span class="nav-icon" aria-hidden="true">‹</span>
+            </button>
+            
+            <h2 class="month-year" id="monthYear" aria-live="polite">
+              <!-- Month and year will be inserted here -->
+            </h2>
+            
+            <button 
+              type="button" 
+              class="nav-btn nav-btn--next" 
+              id="nextMonth"
+              aria-label="Next month"
+            >
+              <span class="nav-icon" aria-hidden="true">›</span>
+            </button>
+          </header>
 
-    <div class="days-name">
-      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
-      <div>Thu</div><div>Fri</div><div>Sat</div>
-    </div>
+          <!-- Current Time Display -->
+          <div class="time-display" aria-label="Current time">
+            <span class="time-icon" aria-hidden="true">🕒</span>
+            <time id="currentTime" datetime="" aria-live="polite">
+              <!-- Current time will be inserted here -->
+            </time>
+          </div>
 
-    <div class="calendar-days" id="calendarDays"></div>
+          <!-- Calendar Grid -->
+          <div class="calendar-grid" role="grid" aria-label="Calendar dates">
+            <!-- Day Headers -->
+            <div class="day-headers" role="row">
+              <div class="day-header" role="columnheader" aria-label="Sunday">
+                <span class="day-abbr">Sun</span>
+                <span class="day-full">Sunday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Monday">
+                <span class="day-abbr">Mon</span>
+                <span class="day-full">Monday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Tuesday">
+                <span class="day-abbr">Tue</span>
+                <span class="day-full">Tuesday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Wednesday">
+                <span class="day-abbr">Wed</span>
+                <span class="day-full">Wednesday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Thursday">
+                <span class="day-abbr">Thu</span>
+                <span class="day-full">Thursday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Friday">
+                <span class="day-abbr">Fri</span>
+                <span class="day-full">Friday</span>
+              </div>
+              <div class="day-header" role="columnheader" aria-label="Saturday">
+                <span class="day-abbr">Sat</span>
+                <span class="day-full">Saturday</span>
+              </div>
+            </div>
+
+            <!-- Calendar Days -->
+            <div class="calendar-days" id="calendarDays" role="rowgroup">
+              <!-- Calendar days will be generated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Facts Section -->
+        <aside class="facts-section" aria-label="Daily fun fact">
+          <h3 class="facts-title">💡 Daily Fun Fact</h3>
+          <div class="facts-content" id="dailyFact" aria-live="polite">
+            <p class="facts-text">Loading an interesting fact...</p>
+          </div>
+        </aside>
+      </section>
     </div>
-    <br>
-    <div class="mini-info" id="miniInfo">
-    💡 Loading a fact...
-    </div>
-    
-  <div id="eventModal" class="modal">
-  <div class="modal-content">
-    <h3 id="eventDateTitle"> Events</h3>
-    <textarea id="eventText" rows="4" placeholder="Write your event here..."></textarea>
-    <div class="modal-buttons">
-      <button onclick="saveEvent()">Save</button>
-      <button onclick="closeModal()">Close</button>
+  </main>
+
+  <!-- Event Modal -->
+  <div 
+    class="modal-overlay" 
+    id="eventModal" 
+    role="dialog" 
+    aria-labelledby="eventModalTitle" 
+    aria-hidden="true"
+  >
+    <div class="modal-content event-modal">
+      <header class="modal-header">
+        <h3 id="eventModalTitle" class="modal-title">
+          📅 Events for <span id="selectedDate"></span>
+        </h3>
+        <button 
+          type="button" 
+          class="close-btn" 
+          id="closeEventModal"
+          aria-label="Close event modal"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <form class="event-form" id="eventForm" novalidate>
+          <div class="form-group">
+            <label for="eventText" class="form-label">Event Details</label>
+            <textarea 
+              id="eventText" 
+              name="eventText" 
+              class="form-textarea"
+              rows="4" 
+              placeholder="Write your event details here..."
+              aria-describedby="eventTextHelp"
+              maxlength="500"
+            ></textarea>
+            <div id="eventTextHelp" class="form-help">
+              Describe your study session, assignment deadline, or other important event.
+            </div>
+            <div class="character-count">
+              <span id="charCount">0</span>/500 characters
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn--save">
+              <span class="btn-icon" aria-hidden="true">💾</span>
+              <span class="btn-text">Save Event</span>
+            </button>
+            <button type="button" class="btn btn--delete" id="deleteEvent">
+              <span class="btn-icon" aria-hidden="true">🗑️</span>
+              <span class="btn-text">Delete Event</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-    
+
+  <!-- Success/Error Messages -->
+  <div id="messageContainer" class="message-container" aria-live="polite" role="status">
+    <!-- Messages will be inserted here -->
   </div>
-  <script src="Calendar.js"></script>
+
+  <script src="calendar.js"></script>
 </body>
 </html>

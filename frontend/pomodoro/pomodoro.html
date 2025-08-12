@@ -1,63 +1,236 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Pomodoro App</title>
-  <link rel="stylesheet" href="Pomodoro.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Pomodoro Timer - Boost your productivity with focused work sessions">
+  <meta name="keywords" content="pomodoro, timer, productivity, focus, study, work sessions">
+  
+  <title>Study Bunny Pomodoro Timer</title>
+  
+  <link rel="stylesheet" href="pomodoro.css">
 </head>
+
 <body>
-  <div class="app-container">
-    <h1 id="h1">POMODORO TIMER</h1>
-    
-    <div class="pomodoro-container">
-      <div id="time-container" class="time-container clickable-timer">
-        <span id="timer-display">25:00</span>
-      </div>
-      
-      <div class="buttons">
-        <button id="stb">START</button>
-        <button id="spb">STOP</button>
-        <button id="rtb">RESET</button>
-      </div>
-    </div>
-    
-    <div id="upgrade-message" class="upgrade-message">
-        <p>Your free session is over! <a href="upgrade.html">Upgrade now</a> to continue.</p>
-    </div>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-    <div class="music-player">
-      <h3>Focus Sounds</h3>
-      <button id="show-sounds-btn" class="playlist-button">Show Sounds</button>
-    </div>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="pomodoro-header">
+      <h1 class="pomodoro-title">Pomodoro Timer</h1>
+      <p class="pomodoro-subtitle">Focus • Work • Break • Repeat</p>
+    </header>
 
-    <div id="playlist-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-button" id="close-playlist">&times;</span>
-        <h2>Choose a Focus Sound</h2>
-        <div class="sound-list">
-          <button class="sound-button free-sound" data-sound="rain">Rain</button>
-          <button class="sound-button free-sound" data-sound="cafe">Cafe</button>
-          <button class="sound-button locked-sound" data-sound="forest">Forest</button>
-          <button class="sound-button locked-sound" data-sound="waves">Waves</button>
-          <button class="sound-button locked-sound" data-sound="stream">Stream</button>
+    <div class="timer-container">
+      <!-- Timer Display -->
+      <section class="timer-section" aria-label="Pomodoro timer">
+        <div class="timer-circle" id="timerCircle">
+          <svg class="progress-ring" width="280" height="280">
+            <circle class="progress-ring-bg" cx="140" cy="140" r="120" />
+            <circle class="progress-ring-fill" cx="140" cy="140" r="120" id="progressCircle" />
+          </svg>
+          <div class="timer-content">
+            <div class="timer-display" id="timerDisplay" aria-live="polite">25:00</div>
+            <div class="timer-mode" id="timerMode">Focus Time</div>
+            <div class="session-count" id="sessionCount">Session 1</div>
+          </div>
         </div>
-        <audio id="audio-player" loop></audio>
+      </section>
+
+      <!-- Controls -->
+      <section class="controls-section" aria-label="Timer controls">
+        <div class="primary-controls">
+          <button type="button" class="btn btn--start" id="startBtn" aria-label="Start timer">
+            <span class="btn-icon" aria-hidden="true">▶️</span>
+            <span class="btn-text">Start</span>
+          </button>
+          <button type="button" class="btn btn--pause" id="pauseBtn" aria-label="Pause timer" disabled>
+            <span class="btn-icon" aria-hidden="true">⏸️</span>
+            <span class="btn-text">Pause</span>
+          </button>
+          <button type="button" class="btn btn--reset" id="resetBtn" aria-label="Reset timer">
+            <span class="btn-icon" aria-hidden="true">⏹️</span>
+            <span class="btn-text">Reset</span>
+          </button>
+        </div>
+
+        <div class="secondary-controls">
+          <button type="button" class="control-btn" id="settingsBtn" aria-label="Timer settings">
+            <span class="btn-icon" aria-hidden="true">⚙️</span>
+            <span class="btn-text">Settings</span>
+          </button>
+          <button type="button" class="control-btn" id="soundsBtn" aria-label="Focus sounds">
+            <span class="btn-icon" aria-hidden="true">🎵</span>
+            <span class="btn-text">Sounds</span>
+          </button>
+          <button type="button" class="control-btn" id="statsBtn" aria-label="View statistics">
+            <span class="btn-icon" aria-hidden="true">📊</span>
+            <span class="btn-text">Stats</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions" aria-label="Quick timer presets">
+        <h3 class="section-title">Quick Start</h3>
+        <div class="preset-buttons">
+          <button type="button" class="preset-btn" data-duration="15">15 min</button>
+          <button type="button" class="preset-btn active" data-duration="25">25 min</button>
+          <button type="button" class="preset-btn" data-duration="45">45 min</button>
+          <button type="button" class="preset-btn" data-duration="60">60 min</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal" role="dialog" aria-labelledby="settingsTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="settingsTitle" class="modal-title">Timer Settings</h3>
+        <button type="button" class="close-btn" id="closeSettings" aria-label="Close settings">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="settings-group">
+          <label for="focusTime" class="setting-label">Focus Time (minutes)</label>
+          <input type="range" id="focusTime" class="setting-slider" min="5" max="60" value="25">
+          <span class="setting-value" id="focusTimeValue">25</span>
+        </div>
+
+        <div class="settings-group">
+          <label for="shortBreak" class="setting-label">Short Break (minutes)</label>
+          <input type="range" id="shortBreak" class="setting-slider" min="1" max="15" value="5">
+          <span class="setting-value" id="shortBreakValue">5</span>
+        </div>
+
+        <div class="settings-group">
+          <label for="longBreak" class="setting-label">Long Break (minutes)</label>
+          <input type="range" id="longBreak" class="setting-slider" min="10" max="30" value="15">
+          <span class="setting-value" id="longBreakValue">15</span>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">
+            <input type="checkbox" id="autoStart" class="setting-checkbox">
+            Auto-start next session
+          </label>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">
+            <input type="checkbox" id="notifications" class="setting-checkbox" checked>
+            Browser notifications
+          </label>
+        </div>
       </div>
     </div>
-
   </div>
-  
-  <!-- Custom Alert -->
-<div id="custom-alert" class="custom-alert">
-  <p id="custom-alert-text">Message goes here</p>
-  <button onclick="closeCustomAlert()">OK</button>
-</div>
-<div id="custom-alert-overlay" class="custom-alert-overlay"></div>
-  
-  
-  <script src="pomodoro-cc.js"></script>
+
+  <!-- Sounds Modal -->
+  <div class="modal-overlay" id="soundsModal" role="dialog" aria-labelledby="soundsTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="soundsTitle" class="modal-title">Focus Sounds</h3>
+        <button type="button" class="close-btn" id="closeSounds" aria-label="Close sounds">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="volume-control">
+          <label for="volumeSlider" class="setting-label">Volume</label>
+          <input type="range" id="volumeSlider" class="setting-slider" min="0" max="100" value="50">
+          <span class="setting-value" id="volumeValue">50%</span>
+        </div>
+
+        <div class="sounds-grid">
+          <button type="button" class="sound-btn active" data-sound="none">
+            <span class="sound-icon">🔇</span>
+            <span class="sound-name">Silence</span>
+          </button>
+          <button type="button" class="sound-btn" data-sound="rain">
+            <span class="sound-icon">🌧️</span>
+            <span class="sound-name">Rain</span>
+          </button>
+          <button type="button" class="sound-btn" data-sound="cafe">
+            <span class="sound-icon">☕</span>
+            <span class="sound-name">Café</span>
+          </button>
+          <button type="button" class="sound-btn" data-sound="forest">
+            <span class="sound-icon">🌲</span>
+            <span class="sound-name">Forest</span>
+          </button>
+          <button type="button" class="sound-btn" data-sound="waves">
+            <span class="sound-icon">🌊</span>
+            <span class="sound-name">Ocean</span>
+          </button>
+          <button type="button" class="sound-btn" data-sound="fireplace">
+            <span class="sound-icon">🔥</span>
+            <span class="sound-name">Fireplace</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div class="modal-overlay" id="statsModal" role="dialog" aria-labelledby="statsTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="statsTitle" class="modal-title">Your Progress</h3>
+        <button type="button" class="close-btn" id="closeStats" aria-label="Close statistics">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="todaySessions">0</div>
+            <div class="stat-label">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="weekSessions">0</div>
+            <div class="stat-label">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="totalSessions">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="currentStreak">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+
+        <div class="recent-sessions">
+          <h4 class="subsection-title">Recent Sessions</h4>
+          <div class="sessions-list" id="sessionsList">
+            <!-- Recent sessions will be populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="audioPlayer" loop preload="none"></audio>
+
   <script src="Pomodoro.js"></script>
 </body>
 </html>
