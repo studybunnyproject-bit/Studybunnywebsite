@@ -289,7 +289,7 @@ a:focus-visible {
 }
 
 #bunnyImg {
-  width: clamp(200px, 30vw, 350px);
+  width: clamp(250px, 40vw, 350px);
   height: auto;
   border-radius: var(--border-radius-lg);
 }
@@ -711,40 +711,93 @@ a:focus-visible {
     --spacing-xl: 1.5rem;
   }
   
+  .app-header {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  .app-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  
   .menu-btn {
     top: var(--spacing-md);
     left: var(--spacing-md);
+    width: 36px;
+    height: 36px;
   }
   
   .cc-widget {
     top: var(--spacing-md);
     right: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+  
+  #ccIcon {
+    width: 20px;
+    height: 20px;
   }
   
   .vertical-menu {
     left: var(--spacing-md);
     right: var(--spacing-md);
     width: auto;
+    max-height: 70vh;
   }
   
-  .main-content {
-    padding: var(--spacing-lg) var(--spacing-md);
-    gap: var(--spacing-lg);
-  }
-  
-  .controls-section {
-    gap: var(--spacing-md);
-  }
-  
-  .customize-btn,
-  .login-btn {
+  .vertical-menu a {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-sm);
   }
   
+  .main-content {
+    padding: var(--spacing-md) var(--spacing-sm);
+    gap: var(--spacing-lg);
+    min-height: 50vh;
+  }
+  
+  #bunnyImg {
+    width: clamp(280px, 60vw, 350px);
+  }
+  
+  .bunny-wrapper {
+    margin: var(--spacing-md) 0;
+  }
+  
+  .controls-section {
+    gap: var(--spacing-md);
+    width: 100%;
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .customize-btn,
+  .login-btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    flex: 1;
+    min-width: 140px;
+  }
+  
+  .btn-icon {
+    font-size: var(--font-size-base);
+  }
+  
   .modal-content {
-    margin: var(--spacing-md);
-    max-width: calc(100% - 2rem);
+    margin: var(--spacing-sm);
+    max-width: calc(100% - 1rem);
+    max-height: 85vh;
+  }
+  
+  .modal-header {
+    padding: var(--spacing-md);
+  }
+  
+  .modal-header h2 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .modal-body {
+    padding: var(--spacing-md);
   }
   
   .color-options {
@@ -752,8 +805,8 @@ a:focus-visible {
   }
   
   .color-circle {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
   
   .category-buttons {
@@ -761,26 +814,105 @@ a:focus-visible {
   }
   
   .category-buttons button {
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-sm);
+  }
+  
+  .outfit-option img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .no-outfit {
+    width: 50px;
+    height: 50px;
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .app-title {
-    font-size: var(--font-size-xl);
+    font-size: 1.4rem;
+    letter-spacing: 0;
+  }
+  
+  .header-divider {
+    max-width: 150px;
+    margin: var(--spacing-sm) auto;
+  }
+  
+  #bunnyImg {
+    width: clamp(300px, 75vw, 350px);
   }
   
   .controls-section {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: var(--spacing-sm);
   }
   
   .customize-btn,
   .login-btn {
     width: 100%;
-    max-width: 200px;
+    max-width: none;
     justify-content: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .vertical-menu {
+    font-size: var(--font-size-sm);
+    top: 60px;
+  }
+  
+  .form-input {
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+  }
+  
+  .submit-btn {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 375px) {
+  #bunnyImg {
+    width: clamp(280px, 80vw, 320px);
+  }
+  
+  .app-title {
+    font-size: 1.3rem;
+  }
+  
+  .menu-btn {
+    width: 32px;
+    height: 32px;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+  }
+  
+  .cc-widget {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    min-width: 70px;
+  }
+  
+  .modal-content {
+    border-radius: var(--border-radius-md);
+  }
+  
+  .category-panel {
+    gap: var(--spacing-sm);
+  }
+  
+  .outfit-option img {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .no-outfit {
+    width: 45px;
+    height: 45px;
   }
 }
 

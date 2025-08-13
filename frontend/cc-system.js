@@ -232,24 +232,24 @@ class CarrotCurrencyManager {
   }
 
   purchaseCC(packageType) {
-    const package = CC_CONFIG.purchases[packageType];
-    if (!package) return false;
+    const purchasePackage = CC_CONFIG.purchases[packageType];
+    if (!purchasePackage) return false;
     
     // In a real app, this would integrate with payment processing
-    const confirmed = confirm(`Purchase ${package.cc} CC for $${package.price}?`);
+    const confirmed = confirm(`Purchase ${purchasePackage.cc} CC for $${purchasePackage.price}?`);
     if (!confirmed) return false;
     
-    this.balance += package.cc;
+    this.balance += purchasePackage.cc;
     this.saveData();
     this.updateDisplay();
     
-    this.showNotification(`Purchased ${package.cc} CC! Thank you for supporting Study Bunny! 🥕`, 'success');
+    this.showNotification(`Purchased ${purchasePackage.cc} CC! Thank you for supporting Study Bunny! 🥕`, 'success');
     
     // Add to achievements log
     this.achievements.unshift({
       type: 'purchased',
-      amount: package.cc,
-      reason: `$${package.price} purchase`,
+      amount: purchasePackage.cc,
+      reason: `$${purchasePackage.price} purchase`,
       timestamp: new Date().toISOString()
     });
     
