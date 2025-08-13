@@ -163,6 +163,14 @@ const TimerManager = {
     if (state.currentMode === 'focus') {
       state.completedSessions++;
       StatsManager.addSession();
+      
+      // Track CC: 10 minutes = 0.1 CC  
+      const minutesCompleted = state.settings.focusTime;
+      if (window.StudyBunnyCC) {
+        window.StudyBunnyCC.trackPomodoroMinutes(minutesCompleted);
+      }
+      
+      console.log(`🍅 Pomodoro completed: +${minutesCompleted} minutes`);
     }
     
     // Determine next mode

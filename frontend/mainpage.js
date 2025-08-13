@@ -16,6 +16,11 @@ const CONFIG = {
 const state = {
   selectedColor: CONFIG.defaultColor,
   currentEmotion: CONFIG.defaultEmotion,
+  currentOutfit: {
+    shirts: null,
+    pants: null,
+    accessories: null
+  },
   cc: 0,
   isMenuOpen: false,
   activeModal: null
@@ -144,7 +149,12 @@ const Modal = {
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('no-scroll');
 
-    if (modalType === 'customization') this.initCustomization();
+    if (modalType === 'customization') {
+      // Ensure outfit layers exist before initializing customization
+      BunnyCustomization.createOutfitLayers();
+      BunnyCustomization.updateAllOutfits();
+      this.initCustomization();
+    }
     if (modalType === 'login') this.initLogin();
   },
 
@@ -164,8 +174,7 @@ const Modal = {
       button.addEventListener('click', () => {
         const color = button.getAttribute('data-color');
         BunnyCustomization.selectColor(color);
-        Utils.$$('.color-circle').forEach(btn => btn.setAttribute('aria-checked', 'false'));
-        button.setAttribute('aria-checked', 'true');
+        this.updateColorSelection(color);
       });
     });
 
@@ -183,11 +192,38 @@ const Modal = {
     Utils.$$('.outfit-option').forEach(button => {
       button.addEventListener('click', () => {
         const outfit = button.getAttribute('data-outfit');
-        BunnyCustomization.selectOutfit(outfit);
+        const category = button.getAttribute('data-category');
+        BunnyCustomization.selectOutfit(outfit, category);
+        this.updateOutfitSelection(category, outfit);
       });
     });
 
+    // Set initial selections based on current state
+    this.updateColorSelection(state.selectedColor);
+    this.updateAllOutfitSelections();
     this.showCategory('shirts');
+  },
+
+  updateColorSelection(selectedColor) {
+    Utils.$$('.color-circle').forEach(btn => btn.setAttribute('aria-checked', 'false'));
+    const selectedButton = Utils.$(`[data-color="${selectedColor}"]`);
+    if (selectedButton) {
+      selectedButton.setAttribute('aria-checked', 'true');
+    }
+  },
+
+  updateOutfitSelection(category, selectedOutfit) {
+    Utils.$$(`[data-category="${category}"]`).forEach(btn => btn.setAttribute('aria-selected', 'false'));
+    const selectedButton = Utils.$(`[data-category="${category}"][data-outfit="${selectedOutfit || 'none'}"]`);
+    if (selectedButton) {
+      selectedButton.setAttribute('aria-selected', 'true');
+    }
+  },
+
+  updateAllOutfitSelections() {
+    Object.keys(state.currentOutfit).forEach(category => {
+      this.updateOutfitSelection(category, state.currentOutfit[category]);
+    });
   },
 
   showCategory(categoryId) {
@@ -246,10 +282,29 @@ const BunnyCustomization = {
   init() {
     const savedColor = Storage.get('bunnyColor', CONFIG.defaultColor);
     const savedEmotion = Storage.get('bunnyEmotion', CONFIG.defaultEmotion);
+    const savedOutfit = Storage.get('bunnyOutfit', {
+      shirts: null,
+      pants: null,
+      accessories: null
+    });
     
     state.selectedColor = savedColor;
     state.currentEmotion = savedEmotion;
+    state.currentOutfit = savedOutfit;
+    
+    console.log('BunnyCustomization init - State:', {
+      color: state.selectedColor,
+      emotion: state.currentEmotion,
+      outfit: state.currentOutfit
+    });
+    
     this.updateBunnyImage();
+    
+    // Wait a moment for DOM to be ready, then create layers
+    setTimeout(() => {
+      this.createOutfitLayers();
+      this.updateAllOutfits();
+    }, 100);
   },
 
   selectColor(color) {
@@ -260,11 +315,24 @@ const BunnyCustomization = {
     Utils.notify(`Bunny color changed to ${color}!`, 'success');
   },
 
-  selectOutfit(filename) {
-    if (!filename) return;
-    Storage.set('bunnyOutfit', filename);
-    this.updateOutfit(filename);
-    Utils.notify('Outfit updated!', 'success');
+  selectOutfit(filename, category) {
+    if (!category) return;
+    
+    // Handle "none" selection
+    if (filename === 'none') {
+      state.currentOutfit[category] = null;
+    } else {
+      state.currentOutfit[category] = filename;
+    }
+    
+    // Save to localStorage
+    Storage.set('bunnyOutfit', state.currentOutfit);
+    
+    // Update the specific outfit layer
+    this.updateOutfitLayer(category, state.currentOutfit[category]);
+    
+    const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+    Utils.notify(`${categoryName} updated!`, 'success');
   },
 
   setEmotion(emotion) {
@@ -283,134 +351,124 @@ const BunnyCustomization = {
     bunnyImage.alt = `${state.selectedColor} bunny feeling ${state.currentEmotion}`;
   },
 
-  updateOutfit(filename) {
-    const outfitPath = `bunny-outfits/${filename}`;
+  createOutfitLayers() {
+    const bunnyWrapper = Utils.$('#bunnyWrapper');
+    if (!bunnyWrapper) {
+      console.log('Bunny wrapper not found!');
+      return;
+    }
+
+    // Remove existing outfit layers
+    Utils.$$('.outfit-layer').forEach(layer => layer.remove());
+
+    // Create layers in correct order (pants first, accessories last)
+    const categories = [
+      { name: 'pants', zIndex: 1 },
+      { name: 'shirts', zIndex: 2 },
+      { name: 'accessories', zIndex: 3 }
+    ];
     
-    // Remove existing outfit styles
-    const existingStyles = Utils.$$('style[data-outfit]');
-    existingStyles.forEach(style => style.remove());
+    categories.forEach(category => {
+      const layer = document.createElement('div');
+      layer.className = `outfit-layer ${category.name}`;
+      layer.setAttribute('data-category', category.name);
+      layer.style.display = 'none'; // Start hidden
+      // Don't set positioning inline - let CSS handle it
+      // Only set the essentials that CSS doesn't cover
+      layer.style.backgroundRepeat = 'no-repeat';
+      layer.style.backgroundSize = 'contain';
+      layer.style.backgroundPosition = 'center';
+      layer.style.pointerEvents = 'none';
+      
+      bunnyWrapper.appendChild(layer);
+      console.log(`Created layer for: ${category.name} - positioned by CSS`);
+    });
     
-    // Apply new outfit
-    const style = document.createElement('style');
-    style.setAttribute('data-outfit', filename);
-    style.textContent = `
-      .bunny-wrapper::after {
-        background-image: url('${outfitPath}');
-      }
-    `;
-    document.head.appendChild(style);
+    console.log('All outfit layers created successfully');
+    console.log('Layer order in DOM:', Array.from(bunnyWrapper.children).map(child => child.className));
+  },
+
+  updateOutfitLayer(category, filename) {
+    const layer = Utils.$(`.outfit-layer.${category}`);
+    if (!layer) {
+      console.log(`Layer not found for category: ${category}`);
+      return;
+    }
+
+    if (filename && filename !== 'none') {
+      const outfitPath = `bunny-outfits/${filename}`;
+      layer.style.backgroundImage = `url('${outfitPath}')`;
+      layer.style.display = 'block';
+      console.log(`Applied outfit: ${outfitPath} to layer: ${category}`);
+    } else {
+      layer.style.backgroundImage = 'none';
+      layer.style.display = 'none';
+      console.log(`Removed outfit from layer: ${category}`);
+    }
+  },
+
+  updateAllOutfits() {
+    // Update all outfit layers
+    Object.keys(state.currentOutfit).forEach(category => {
+      this.updateOutfitLayer(category, state.currentOutfit[category]);
+    });
+  },
+
+  // Method to get current outfit configuration
+  getCurrentOutfit() {
+    return {
+      color: state.selectedColor,
+      emotion: state.currentEmotion,
+      outfit: { ...state.currentOutfit }
+    };
+  },
+
+  // Method to apply a complete outfit configuration
+  applyOutfitConfiguration(config) {
+    if (config.color) this.selectColor(config.color);
+    if (config.emotion) this.setEmotion(config.emotion);
+    if (config.outfit) {
+      Object.keys(config.outfit).forEach(category => {
+        if (config.outfit[category]) {
+          this.selectOutfit(config.outfit[category], category);
+        }
+      });
+    }
   }
 };
 
 // ===================================
-// Currency System
+// Currency System (Integrated with CC System)
 // ===================================
 const CurrencySystem = {
   init() {
-    this.loadCC();
-    this.checkInactivity();
-    this.setupCCWidget();
-  },
-
-  loadCC() {
-    state.cc = Storage.get('cc', 0);
-    this.updateCCDisplay();
-  },
-
-  saveCC() {
-    Storage.set('cc', state.cc);
-  },
-
-  updateCCDisplay() {
-    const ccDisplay = Utils.$('#ccAmount');
-    if (ccDisplay) {
-      ccDisplay.textContent = state.cc.toFixed(2);
-    }
-  },
-
-  earnCC(amount, reason = '') {
-    if (amount <= 0) return;
-    state.cc += amount;
-    this.saveCC();
-    this.updateCCDisplay();
+    // The new CC system will handle all currency logic
+    // Just maintain compatibility for emotion updates
     this.updateEmotionBasedOnActivity();
-    if (reason) Utils.notify(`+${amount.toFixed(2)} CC earned! ${reason}`, 'success');
+    
+    // Listen for CC updates to update bunny emotions
+    document.addEventListener('ccUpdated', (e) => {
+      this.updateEmotionBasedOnCC(e.detail.balance);
+    });
   },
 
-  spendCC(amount, reason = '') {
-    if (amount <= 0 || state.cc < amount) {
-      Utils.notify('Insufficient CC!', 'error');
-      return false;
-    }
-    state.cc -= amount;
-    this.saveCC();
-    this.updateCCDisplay();
-    if (reason) Utils.notify(`-${amount.toFixed(2)} CC spent on ${reason}`, 'info');
-    return true;
-  },
-
-  updateEmotionBasedOnActivity() {
-    const lastDate = Storage.get('lastActiveDate');
-    const today = new Date().toDateString();
+  updateEmotionBasedOnCC(ccBalance) {
     let newEmotion = CONFIG.defaultEmotion;
 
-    if (lastDate) {
-      const daysDiff = this.getDaysDifference(lastDate, today);
-      if (daysDiff >= CONFIG.inactivityThresholds.penalty) {
-        newEmotion = 'sad';
-      } else if (daysDiff >= CONFIG.inactivityThresholds.warning) {
-        newEmotion = 'bored';
-      }
-    }
-
     // Emotion boosts from CC progress
-    if (state.cc >= CONFIG.ccRates.emotions.excited) {
+    if (ccBalance >= 1.0) {
       newEmotion = 'excited';
-    } else if (state.cc >= CONFIG.ccRates.emotions.happy) {
+    } else if (ccBalance >= 0.3) {
       newEmotion = 'happy';
     }
 
     BunnyCustomization.setEmotion(newEmotion);
   },
 
-  checkInactivity() {
-    const lastDate = Storage.get('lastActiveDate');
-    const today = new Date().toDateString();
-
-    if (lastDate && lastDate !== today) {
-      const daysDiff = this.getDaysDifference(lastDate, today);
-      
-      if (daysDiff >= CONFIG.inactivityThresholds.penalty) {
-        const penalty = Math.abs(CONFIG.ccRates.inactivity.penalty);
-        state.cc = Math.max(state.cc - penalty, 0);
-        Utils.notify(`Lost ${penalty} CC due to inactivity!`, 'error');
-      } else if (daysDiff >= CONFIG.inactivityThresholds.warning) {
-        const penalty = Math.abs(CONFIG.ccRates.inactivity.warning);
-        state.cc = Math.max(state.cc - penalty, 0);
-      }
-
-      this.saveCC();
-      this.updateCCDisplay();
-    }
-
-    Storage.set('lastActiveDate', today);
-    this.updateEmotionBasedOnActivity();
-  },
-
-  getDaysDifference(date1Str, date2Str) {
-    const date1 = new Date(date1Str);
-    const date2 = new Date(date2Str);
-    const diffTime = Math.abs(date2 - date1);
-    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  },
-
-  setupCCWidget() {
-    const ccWidget = Utils.$('#ccWidget');
-    if (ccWidget) {
-      ccWidget.addEventListener('click', () => {
-        window.location.href = 'cc-info.html';
-      });
-    }
+  updateEmotionBasedOnActivity() {
+    // Get CC balance from the new system
+    const ccBalance = window.StudyBunnyCC ? window.StudyBunnyCC.getBalance() : 0;
+    this.updateEmotionBasedOnCC(ccBalance);
   }
 };
 
@@ -432,11 +490,128 @@ const App = {
       Modal.init();
       BunnyCustomization.init();
       CurrencySystem.init();
+      this.initPositioningTest(); // Add positioning test
       
       console.log('Study Bunny App initialized successfully!');
     } catch (error) {
       console.error('Failed to initialize app:', error);
       Utils.notify('Failed to initialize app. Please refresh the page.', 'error');
+    }
+  },
+
+  initPositioningTest() {
+    const testBtn = Utils.$('#testPositioningBtn');
+    const tuneBtn = Utils.$('#tuneBtn');
+    
+    if (testBtn) {
+      testBtn.addEventListener('click', () => {
+        console.log('=== TESTING OUTFIT POSITIONING ===');
+        
+        // Clear all first
+        BunnyCustomization.selectOutfit('none', 'shirts');
+        BunnyCustomization.selectOutfit('none', 'pants');
+        BunnyCustomization.selectOutfit('none', 'accessories');
+        
+        setTimeout(() => {
+          // Test each outfit type one by one
+          console.log('1. Testing PANTS positioning...');
+          BunnyCustomization.selectOutfit('pants1.png', 'pants');
+          Utils.notify('Pants applied - should appear on legs', 'info');
+          
+          setTimeout(() => {
+            console.log('2. Adding SHIRT positioning...');
+            BunnyCustomization.selectOutfit('shirt1.png', 'shirts');
+            Utils.notify('Shirt applied - should appear on chest', 'info');
+            
+            setTimeout(() => {
+              console.log('3. Adding ACCESSORY positioning...');
+              BunnyCustomization.selectOutfit('accessories1.png', 'accessories');
+              Utils.notify('Accessory applied - should appear on head', 'info');
+              
+              // Show positioning info
+              const layers = Utils.$$('.outfit-layer');
+              layers.forEach(layer => {
+                const category = layer.getAttribute('data-category');
+                const computed = window.getComputedStyle(layer);
+                console.log(`${category.toUpperCase()} layer:`, {
+                  top: computed.top,
+                  left: computed.left,
+                  width: computed.width,
+                  height: computed.height,
+                  bottom: computed.bottom,
+                  display: layer.style.display,
+                  backgroundImage: layer.style.backgroundImage
+                });
+              });
+            }, 1500);
+          }, 1500);
+        }, 500);
+      });
+    }
+    
+    if (tuneBtn) {
+      tuneBtn.addEventListener('click', () => {
+        // Create fine-tuning interface
+        const tuningPanel = document.createElement('div');
+        tuningPanel.style.cssText = `
+          position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          background: white; padding: 20px; border-radius: 10px; 
+          box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 9999;
+          max-width: 400px; font-family: Arial, sans-serif;
+        `;
+        
+        tuningPanel.innerHTML = `
+          <h3>Fine-tune Outfit Positioning</h3>
+          <div style="margin: 10px 0;">
+            <label>Pants Position:</label><br/>
+            <input type="range" id="pantsTop" min="0" max="80" value="60" style="width: 100%;"/> Top: <span id="pantsTopVal">60%</span><br/>
+            <input type="range" id="pantsLeft" min="0" max="50" value="25" style="width: 100%;"/> Left: <span id="pantsLeftVal">25%</span>
+          </div>
+          <div style="margin: 10px 0;">
+            <label>Shirts Position:</label><br/>
+            <input type="range" id="shirtsTop" min="0" max="60" value="35" style="width: 100%;"/> Top: <span id="shirtsTopVal">35%</span><br/>
+            <input type="range" id="shirtsLeft" min="0" max="40" value="20" style="width: 100%;"/> Left: <span id="shirtsLeftVal">20%</span>
+          </div>
+          <div style="margin: 10px 0;">
+            <label>Accessories Position:</label><br/>
+            <input type="range" id="accessoriesTop" min="0" max="30" value="15" style="width: 100%;"/> Top: <span id="accessoriesTopVal">15%</span><br/>
+            <input type="range" id="accessoriesLeft" min="20" max="50" value="35" style="width: 100%;"/> Left: <span id="accessoriesLeftVal">35%</span>
+          </div>
+          <button onclick="this.parentElement.remove()" style="background: #f44336; color: white; padding: 10px; border: none; border-radius: 5px; margin-top: 10px;">Close</button>
+        `;
+        
+        document.body.appendChild(tuningPanel);
+        
+        // Add real-time adjustment
+        ['pants', 'shirts', 'accessories'].forEach(category => {
+          const topSlider = tuningPanel.querySelector(`#${category}Top`);
+          const leftSlider = tuningPanel.querySelector(`#${category}Left`);
+          const topLabel = tuningPanel.querySelector(`#${category}TopVal`);
+          const leftLabel = tuningPanel.querySelector(`#${category}LeftVal`);
+          
+          function updatePosition() {
+            const layer = Utils.$(`.outfit-layer.${category}`);
+            if (layer) {
+              if (category === 'pants') {
+                layer.style.bottom = topSlider.value + '%';
+              } else {
+                layer.style.top = topSlider.value + '%';
+              }
+              layer.style.left = leftSlider.value + '%';
+              topLabel.textContent = topSlider.value + '%';
+              leftLabel.textContent = leftSlider.value + '%';
+            }
+          }
+          
+          topSlider.addEventListener('input', updatePosition);
+          leftSlider.addEventListener('input', updatePosition);
+        });
+        
+        // Apply test outfits
+        BunnyCustomization.selectOutfit('pants1.png', 'pants');
+        BunnyCustomization.selectOutfit('shirt1.png', 'shirts');
+        BunnyCustomization.selectOutfit('accessories1.png', 'accessories');
+      });
     }
   }
 };

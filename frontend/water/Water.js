@@ -328,6 +328,12 @@ const WaterTracker = {
     Utils.playSound('goal');
     Utils.showNotification('🎉 Daily goal reached! Excellent hydration! 🎉', 'success');
     
+    // Bonus CC reward for reaching daily hydration goal
+    if (window.StudyBunnyCC) {
+      window.StudyBunnyCC.earnCC(0.05, 'Daily hydration goal achieved!');
+    }
+    console.log('💧 Hydration goal reached: Bonus CC awarded!');
+    
     // Add celebration animation
     const progressCircle = Utils.$('.progress-circle');
     progressCircle.classList.add('goal-reached');

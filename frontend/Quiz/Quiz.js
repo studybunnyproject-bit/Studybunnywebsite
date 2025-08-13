@@ -346,6 +346,14 @@ const QuizManager = {
     const currentQuestion = state.quizQuestions[state.currentQuestionIndex];
     const isCorrect = userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase();
     
+    // Track CC for correct answers: 10 correct = 0.1 CC
+    if (isCorrect) {
+      if (window.StudyBunnyCC) {
+        window.StudyBunnyCC.trackQuizCorrect(1);
+      }
+      console.log('💡 Quiz answer correct: +1 correct answer for CC tracking');
+    }
+    
     // Store answer
     state.userAnswers.push({
       questionId: currentQuestion.id,

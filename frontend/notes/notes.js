@@ -117,6 +117,9 @@ const NotesManager = {
     
     // Focus title input
     setTimeout(() => Utils.$('#noteTitle').focus(), 100);
+    
+    // Reset word count for CC tracking
+    EditorManager.resetWordCount();
   },
   
   loadNote: (noteId) => {
@@ -144,6 +147,7 @@ const NotesManager = {
     if (activeItem) activeItem.classList.add('active');
     
     EditorManager.updateStats();
+    EditorManager.resetWordCount(); // Reset word count for CC tracking
   },
   
   saveCurrentNote: () => {
@@ -298,6 +302,8 @@ const NotesManager = {
 
 // Editor Manager
 const EditorManager = {
+  lastWordCount: 0, // Track previous word count for CC system
+  
   init: () => {
     const editor = Utils.$('#noteEditor');
     
@@ -360,6 +366,27 @@ const EditorManager = {
     
     Utils.$('#wordCount').textContent = words;
     Utils.$('#charCount').textContent = chars;
+    
+    // Track words written for CC system
+    if (words > EditorManager.lastWordCount) {
+      const wordsWritten = words - EditorManager.lastWordCount;
+      
+      // Track CC: 50 words = 0.1 CC
+      if (window.StudyBunnyCC) {
+        window.StudyBunnyCC.trackWordsWritten(wordsWritten);
+      }
+      
+      console.log(`📝 Words written: +${wordsWritten} (Total: ${words})`);
+    }
+    
+    EditorManager.lastWordCount = words;
+  },
+  
+  // Reset word count when loading a new note
+  resetWordCount: () => {
+    const content = Utils.stripHtml(Utils.$('#noteEditor').innerHTML);
+    const words = content.trim() ? content.split(/\s+/).length : 0;
+    EditorManager.lastWordCount = words;
   }
 };
 

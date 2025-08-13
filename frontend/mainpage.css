@@ -294,18 +294,47 @@ a:focus-visible {
   border-radius: var(--border-radius-lg);
 }
 
-.bunny-wrapper::after {
-  content: "";
+/* Outfit Layering System - Remove old ::after system */
+
+/* Individual outfit layers for proper stacking */
+.bunny-wrapper .outfit-layer {
   position: absolute;
-  bottom: 6%;
-  left: 8%;
-  width: 84%;
-  height: 84%;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% 100%; /* Stretch to fit exact area */
   background-position: center;
   pointer-events: none;
+  display: none; /* Hidden by default */
+}
+
+/* Pants positioned in lower body area (legs/lower torso) */
+.bunny-wrapper .outfit-layer.pants {
   z-index: 2;
+  top: 40%;
+  bottom: 0%; /* Slightly above bottom */
+  left: 0%; /* Center horizontally */
+  width: 100%; /* Narrower width for legs */
+  height: 100%; /* Cover legs area only */
+  background-size: contain; /* Keep aspect ratio for pants */
+}
+
+/* Shirts positioned in upper body area (chest/arms) */
+.bunny-wrapper .outfit-layer.shirts {
+  z-index: 2;
+  top: 0%; /* Position in chest area */
+  left: 0%; /* Center on torso */
+  width: 100%; /* Cover torso width */
+  height: 100%; /* Cover chest area */
+  background-size: contain; /* Keep aspect ratio for shirts */
+}
+
+/* Accessories positioned in head area (ears/face) */
+.bunny-wrapper .outfit-layer.accessories {
+  z-index: 3;
+  top: 15%; /* Position on face/head */
+  left: 35%; /* Center on face */
+  width: 30%; /* Smaller for accessories */
+  height: 25%; /* Cover head/face area */
+  background-size: contain; /* Keep aspect ratio for accessories */
 }
 
 .controls-section {
@@ -571,6 +600,27 @@ a:focus-visible {
   border-color: var(--primary-purple);
   transform: scale(1.05);
   box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.no-outfit {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-light);
+  border: 2px dashed var(--border-light);
+  border-radius: var(--border-radius-md);
+  color: var(--text-light);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.outfit-option:hover .no-outfit,
+.outfit-option[aria-selected="true"] .no-outfit {
+  background: var(--background-modal);
+  border-color: var(--primary-purple);
+  color: var(--primary-purple);
 }
 
 /* ===================================

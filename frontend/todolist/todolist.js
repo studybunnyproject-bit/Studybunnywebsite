@@ -213,8 +213,17 @@ const TodoManager = {
     const todo = state.todos.find(t => t.id === id);
     if (!todo) return;
     
+    const wasCompleted = todo.completed;
     todo.completed = !todo.completed;
     todo.completedAt = todo.completed ? new Date().toISOString() : null;
+    
+    // Track CC for newly completed tasks: 10 tasks = 0.1 CC
+    if (!wasCompleted && todo.completed) {
+      if (window.StudyBunnyCC) {
+        window.StudyBunnyCC.trackTodoCompleted(1);
+      }
+      console.log('✅ Task completed: +1 task for CC tracking');
+    }
     
     Storage.saveTodos();
     TodoManager.updateUI();
@@ -264,9 +273,9 @@ const TodoManager = {
     const completedCount = state.todos.filter(t => t.completed).length;
     if (completedCount === 0) {
       Utils.showNotification('No completed tasks to clear', 'info');
-      return;
-    }
-    
+    return;
+  }
+
     if (!confirm(`Delete ${completedCount} completed task${completedCount !== 1 ? 's' : ''}?`)) return;
     
     state.todos = state.todos.filter(t => !t.completed);

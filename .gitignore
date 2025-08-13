@@ -3,7 +3,7 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+.DS_Store
 # Production builds
 dist/
 build/
@@ -40,3 +40,5 @@ logs
 # Temporary files
 *.tmp
 *.temp
+deploy/
+study-bunny-netlify-deploy.zip

@@ -432,6 +432,12 @@ const StudyMode = {
     if (isCorrect) {
       state.studySession.correctCount++;
       card.correctCount = (card.correctCount || 0) + 1;
+      
+      // Track CC for correct answers: 10 correct = 0.1 CC
+      if (window.StudyBunnyCC) {
+        window.StudyBunnyCC.trackFlashcardCorrect(1);
+      }
+      console.log('🎯 Flashcard correct: +1 correct answer for CC tracking');
     } else {
       state.studySession.wrongCount++;
     }

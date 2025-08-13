@@ -34,8 +34,8 @@
     
     <div class="vertical-menu" id="verticalMenu" role="menu" aria-labelledby="menuBtn">
       <a href="mainpage.html" role="menuitem">HOME</a>
-      <a href="planners/weekly.code/weekly.html" role="menuitem">ABOUT</a>
-      <a href="flashcards/flashcard.html" role="menuitem">DONATION</a>
+      <!-- <a href="planners/weekly.code/weekly.html" role="menuitem">ABOUT</a> -->
+      <!-- <a href="flashcards/flashcard.html" role="menuitem">DONATION</a> -->
       <a href="planners/planner.html" role="menuitem">PLANNER</a>
       <a href="pomodoro/pomodoro.html" role="menuitem">POMODORO</a>
       <a href="todolist/todolist.html" role="menuitem">TO DO-LIST</a>
@@ -54,7 +54,7 @@
   <main class="main-content" role="main">
     <!-- Bunny Character Display -->
     <section class="bunny-section" aria-label="Your study buddy character">
-      <div class="bunny-wrapper" id="bunnyWrapper">
+      <div class="bunny-wrapper  " id="bunnyWrapper">
         <img id="bunnyImg" src="bunny-body/white_neutral.png" alt="Your study bunny character" role="img">
       </div>
     </section>
@@ -69,6 +69,15 @@
       <button class="login-btn" id="loginBtn" aria-label="Login to your account">
         <span class="btn-icon" aria-hidden="true">👤</span>
         <span class="btn-text">Login</span>
+      </button>
+      
+      <!-- Temporary positioning test button -->
+      <button class="test-positioning-btn" id="testPositioningBtn" aria-label="Test outfit positioning" style="background: #ff9800; color: white; padding: 8px 16px; border-radius: 8px; margin-left: 10px;">
+        <span class="btn-text">🎯 Test Fit</span>
+      </button>
+      
+      <button class="tune-btn" id="tuneBtn" aria-label="Fine-tune positioning" style="background: #2196f3; color: white; padding: 8px 16px; border-radius: 8px; margin-left: 5px;">
+        <span class="btn-text">🔧 Tune</span>
       </button>
     </section>
   </main>
@@ -108,30 +117,125 @@
           <h3>Choose Outfit</h3>
           <div class="category-buttons" role="tablist" aria-label="Outfit categories">
             <button role="tab" data-category="shirts" aria-selected="true" aria-controls="shirtsPanel">Shirts</button>
-            <button role="tab" data-category="skirts" aria-selected="false" aria-controls="skirtsPanel">Skirts</button>
-            <button role="tab" data-category="dresses" aria-selected="false" aria-controls="dressesPanel">Dresses</button>
+            <button role="tab" data-category="pants" aria-selected="false" aria-controls="pantsPanel">Pants</button>
             <button role="tab" data-category="accessories" aria-selected="false" aria-controls="accessoriesPanel">Accessories</button>
           </div>
 
           <div id="shirtsPanel" class="category-panel" role="tabpanel" aria-labelledby="shirts">
-            <button class="outfit-option" data-outfit="shirt1.png" aria-label="Blue shirt">
-              <img src="bunny-outfits/shirt1.png" alt="Blue shirt">
+            <button class="outfit-option" data-outfit="none" data-category="shirts" aria-label="No shirt">
+              <div class="no-outfit">None</div>
             </button>
-            <button class="outfit-option" data-outfit="shirt2.png" aria-label="Red shirt">
-              <img src="bunny-outfits/shirt2.png" alt="Red shirt">
+            <button class="outfit-option" data-outfit="shirt1.png" data-category="shirts" aria-label="Shirt 1">
+              <img src="bunny-outfits/shirt1.png" alt="Shirt 1">
+            </button>
+            <button class="outfit-option" data-outfit="shirt2.png" data-category="shirts" aria-label="Shirt 2">
+              <img src="bunny-outfits/shirt2.png" alt="Shirt 2">
+            </button>
+            <button class="outfit-option" data-outfit="shirt3.png" data-category="shirts" aria-label="Shirt 3">
+              <img src="bunny-outfits/shirt3.png" alt="Shirt 3">
+            </button>
+            <button class="outfit-option" data-outfit="shirt4.png" data-category="shirts" aria-label="Shirt 4">
+              <img src="bunny-outfits/shirt4.png" alt="Shirt 4">
+            </button>
+            <button class="outfit-option" data-outfit="shirt5.png" data-category="shirts" aria-label="Shirt 5">
+              <img src="bunny-outfits/shirt5.png" alt="Shirt 5">
+            </button>
+            <button class="outfit-option" data-outfit="shirt6.png" data-category="shirts" aria-label="Shirt 6">
+              <img src="bunny-outfits/shirt6.png" alt="Shirt 6">
+            </button>
+            <button class="outfit-option" data-outfit="shirt7.png" data-category="shirts" aria-label="Shirt 7">
+              <img src="bunny-outfits/shirt7.png" alt="Shirt 7">
+            </button>
+            <button class="outfit-option" data-outfit="shirt8.png" data-category="shirts" aria-label="Shirt 8">
+              <img src="bunny-outfits/shirt8.png" alt="Shirt 8">
+            </button>
+            <button class="outfit-option" data-outfit="shirt9.png" data-category="shirts" aria-label="Shirt 9">
+              <img src="bunny-outfits/shirt9.png" alt="Shirt 9">
+            </button>
+            <button class="outfit-option" data-outfit="shirt10.png" data-category="shirts" aria-label="Shirt 10">
+              <img src="bunny-outfits/shirt10.png" alt="Shirt 10">
+            </button>
+            <button class="outfit-option" data-outfit="shirt11.png" data-category="shirts" aria-label="Shirt 11">
+              <img src="bunny-outfits/shirt11.png" alt="Shirt 11">
+            </button>
+            <button class="outfit-option" data-outfit="shirt12.png" data-category="shirts" aria-label="Shirt 12">
+              <img src="bunny-outfits/shirt12.png" alt="Shirt 12">
+            </button>
+            <button class="outfit-option" data-outfit="shirt13.png" data-category="shirts" aria-label="Shirt 13">
+              <img src="bunny-outfits/shirt13.png" alt="Shirt 13">
+            </button>
+            <button class="outfit-option" data-outfit="shirt14.png" data-category="shirts" aria-label="Shirt 14">
+              <img src="bunny-outfits/shirt14.png" alt="Shirt 14">
+            </button>
+            <button class="outfit-option" data-outfit="shirt15.png" data-category="shirts" aria-label="Shirt 15">
+              <img src="bunny-outfits/shirt15.png" alt="Shirt 15">
+            </button>
+            <button class="outfit-option" data-outfit="shirt16.png" data-category="shirts" aria-label="Shirt 16">
+              <img src="bunny-outfits/shirt16.png" alt="Shirt 16">
+            </button>
+            <button class="outfit-option" data-outfit="shirt17.png" data-category="shirts" aria-label="Shirt 17">
+              <img src="bunny-outfits/shirt17.png" alt="Shirt 17">
             </button>
           </div>
           
-          <div id="skirtsPanel" class="category-panel" role="tabpanel" aria-labelledby="skirts" hidden>
-            <!-- Skirt options will be added here -->
-          </div>
-          
-          <div id="dressesPanel" class="category-panel" role="tabpanel" aria-labelledby="dresses" hidden>
-            <!-- Dress options will be added here -->
+          <div id="pantsPanel" class="category-panel" role="tabpanel" aria-labelledby="pants" hidden>
+            <button class="outfit-option" data-outfit="none" data-category="pants" aria-label="No pants">
+              <div class="no-outfit">None</div>
+            </button>
+            <button class="outfit-option" data-outfit="pants1.png" data-category="pants" aria-label="Pants 1">
+              <img src="bunny-outfits/pants1.png" alt="Pants 1">
+            </button>
+            <button class="outfit-option" data-outfit="pants2.png" data-category="pants" aria-label="Pants 2">
+              <img src="bunny-outfits/pants2.png" alt="Pants 2">
+            </button>
+            <button class="outfit-option" data-outfit="pants3.png" data-category="pants" aria-label="Pants 3">
+              <img src="bunny-outfits/pants3.png" alt="Pants 3">
+            </button>
+            <button class="outfit-option" data-outfit="pants4.png" data-category="pants" aria-label="Pants 4">
+              <img src="bunny-outfits/pants4.png" alt="Pants 4">
+            </button>
+            <button class="outfit-option" data-outfit="pants5.png" data-category="pants" aria-label="Pants 5">
+              <img src="bunny-outfits/pants5.png" alt="Pants 5">
+            </button>
+            <button class="outfit-option" data-outfit="pants6.png" data-category="pants" aria-label="Pants 6">
+              <img src="bunny-outfits/pants6.png" alt="Pants 6">
+            </button>
+            <button class="outfit-option" data-outfit="pants7.png" data-category="pants" aria-label="Pants 7">
+              <img src="bunny-outfits/pants7.png" alt="Pants 7">
+            </button>
+            <button class="outfit-option" data-outfit="pants8.png" data-category="pants" aria-label="Pants 8">
+              <img src="bunny-outfits/pants8.png" alt="Pants 8">
+            </button>
+            <button class="outfit-option" data-outfit="pants9.png" data-category="pants" aria-label="Pants 9">
+              <img src="bunny-outfits/pants9.png" alt="Pants 9">
+            </button>
+            <button class="outfit-option" data-outfit="pants10.png" data-category="pants" aria-label="Pants 10">
+              <img src="bunny-outfits/pants10.png" alt="Pants 10">
+            </button>
+            <button class="outfit-option" data-outfit="pants11.png" data-category="pants" aria-label="Pants 11">
+              <img src="bunny-outfits/pants11.png" alt="Pants 11">
+            </button>
+            <button class="outfit-option" data-outfit="pants12.png" data-category="pants" aria-label="Pants 12">
+              <img src="bunny-outfits/pants12.png" alt="Pants 12">
+            </button>
+            <button class="outfit-option" data-outfit="pants13.png" data-category="pants" aria-label="Pants 13">
+              <img src="bunny-outfits/pants13.png" alt="Pants 13">
+            </button>
+            <button class="outfit-option" data-outfit="pants14.png" data-category="pants" aria-label="Pants 14">
+              <img src="bunny-outfits/pants14.png" alt="Pants 14">
+            </button>
+            <button class="outfit-option" data-outfit="pants15.png" data-category="pants" aria-label="Pants 15">
+              <img src="bunny-outfits/pants15.png" alt="Pants 15">
+            </button>
           </div>
           
           <div id="accessoriesPanel" class="category-panel" role="tabpanel" aria-labelledby="accessories" hidden>
-            <!-- Accessory options will be added here -->
+            <button class="outfit-option" data-outfit="none" data-category="accessories" aria-label="No accessories">
+              <div class="no-outfit">None</div>
+            </button>
+            <button class="outfit-option" data-outfit="accessories1.png" data-category="accessories" aria-label="Accessories 1">
+              <img src="bunny-outfits/accessories1.png" alt="Accessories 1">
+            </button>
           </div>
         </section>
       </div>
@@ -169,6 +273,8 @@
     </div>
   </div>
 
+  <!-- CC System (must load before mainpage.js) -->
+  <script src="cc-system.js"></script>
   <script src="mainpage.js"></script>
 </body>
 </html>

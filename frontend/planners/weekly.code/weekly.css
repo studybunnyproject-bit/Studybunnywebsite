@@ -14,6 +14,17 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.app-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
 
 h1, h2 {
   text-align: center;
@@ -72,6 +83,12 @@ ul li {
   padding: 8px;
   border-radius: 5px;
   font-family: fantasy;
+}
+@media print {
+  .app-navigation,
+  .help-section {
+    display: none;
+  }
 }
 
 #weeklyGoal,#weeklyNotes{
