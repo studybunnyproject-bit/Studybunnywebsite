@@ -1,46 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Quiz App</title>
-  <link rel="stylesheet" href="Quiz.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Quiz Creator</h1>
-
-    <!-- Input Section -->
-    <div id="input-section">
-      <form id="quiz-form">
-        <input type="text" id="question" placeholder="Enter question" required />
-        <input type="text" id="answer" placeholder="Enter correct answer" required />
-        <button type="submit">Save Question</button>
-      </form>
-      <br>
-      <label for="custom-timer">Set time per question (seconds):</label><br>
-<input type="number" id="custom-timer" value="30" min="5" max="300" />
-      
-      <button id="start-quiz">Start Quiz</button>
-    </div>
-
-    <!-- Quiz Section -->
-    <div id="quiz-section" style="display:none;">
-      <h2 id="quiz-question"></h2>
-      <input type="text" id="user-answer" placeholder="Your answer" />
-      <button id="submit-answer">Submit</button>
-      <p id="timer">⏳ Time left: <span id="time">30</span>s</p>
-    </div>
-
-    <!-- Result Section -->
-    <div id="result-section" style="display:none;">
-      <h2>Score: <span id="score"></span></h2>
-      <h3>Percentage: <span id="percentage"></span>%</h3>
-      <h3>Grade: <span id="grade"></span></h3>
-      <button onclick="location.reload()">Try Again</button>
-    </div>
-  </div>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Quiz Creator - Create and take interactive quizzes for better learning">
+  <meta name="keywords" content="quiz, study, learning, questions, answers, education">
   
+  <title>Study Bunny Quiz Creator</title>
+  
+  <link rel="stylesheet" href="Quiz.css">
+</head>
 
+<body>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="quiz-header">
+      <h1 class="quiz-title">Quiz Creator</h1>
+      <p class="quiz-subtitle">Create interactive quizzes and test your knowledge! 🧠</p>
+    </header>
+
+    <!-- Quiz Creation Section -->
+    <section class="creation-section" id="creationSection" aria-label="Quiz creation">
+      <div class="section-card">
+        <h2 class="section-title">Create Your Quiz</h2>
+        
+        <form class="quiz-form" id="quizForm">
+          <div class="form-group">
+            <label for="questionInput" class="form-label">Question</label>
+            <textarea 
+              id="questionInput" 
+              class="form-textarea"
+              placeholder="Enter your question here..."
+              rows="3"
+              maxlength="300"
+              required
+              aria-describedby="questionHelp"
+            ></textarea>
+            <div id="questionHelp" class="form-help">
+              Keep questions clear and concise (max 300 characters)
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="answerInput" class="form-label">Correct Answer</label>
+            <input 
+              type="text" 
+              id="answerInput" 
+              class="form-input"
+              placeholder="Enter the correct answer..."
+              maxlength="100"
+              required
+              aria-describedby="answerHelp"
+            >
+            <div id="answerHelp" class="form-help">
+              Answer matching is case-insensitive
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary">
+            <span class="btn-icon" aria-hidden="true">➕</span>
+            <span class="btn-text">Add Question</span>
+          </button>
+        </form>
+
+        <!-- Quiz Settings -->
+        <div class="quiz-settings">
+          <h3 class="settings-title">Quiz Settings</h3>
+          <div class="settings-grid">
+            <div class="setting-item">
+              <label for="timePerQuestion" class="setting-label">Time per question (seconds)</label>
+              <input type="range" id="timePerQuestion" class="setting-slider" min="10" max="120" value="30">
+              <span class="setting-value" id="timeValue">30s</span>
+            </div>
+            
+            <div class="setting-item">
+              <label class="setting-label">
+                <input type="checkbox" id="randomizeQuestions" class="setting-checkbox">
+                Randomize question order
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Questions Preview -->
+        <div class="questions-preview">
+          <div class="preview-header">
+            <h3 class="preview-title">Questions Added</h3>
+            <span class="question-count" id="questionCount">0 questions</span>
+          </div>
+          <div class="questions-list" id="questionsList">
+            <div class="empty-state">
+              <span class="empty-icon" aria-hidden="true">📝</span>
+              <p>No questions added yet. Create your first question above!</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn--success btn--large" id="startQuizBtn" disabled>
+          <span class="btn-icon" aria-hidden="true">🚀</span>
+          <span class="btn-text">Start Quiz</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Quiz Taking Section -->
+    <section class="quiz-section" id="quizSection" aria-label="Take quiz" hidden>
+      <div class="section-card">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-text">
+            Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span>
+          </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-container">
+          <div class="timer-circle">
+            <svg class="timer-ring" width="80" height="80">
+              <circle class="timer-ring-bg" cx="40" cy="40" r="35" />
+              <circle class="timer-ring-fill" cx="40" cy="40" r="35" id="timerCircle" />
+            </svg>
+            <div class="timer-text" id="timerText">30</div>
+          </div>
+          <div class="timer-label">seconds left</div>
+        </div>
+
+        <!-- Question -->
+        <div class="question-container">
+          <h2 class="question-text" id="questionText">Loading question...</h2>
+        </div>
+
+        <!-- Answer Input -->
+        <form class="answer-form" id="answerForm">
+          <div class="form-group">
+            <label for="userAnswer" class="form-label sr-only">Your answer</label>
+            <input 
+              type="text" 
+              id="userAnswer" 
+              class="answer-input"
+              placeholder="Type your answer here..."
+              autocomplete="off"
+              required
+            >
+          </div>
+          
+          <div class="answer-actions">
+            <button type="submit" class="btn btn--primary btn--large">
+              <span class="btn-icon" aria-hidden="true">✅</span>
+              <span class="btn-text">Submit Answer</span>
+            </button>
+            <button type="button" class="btn btn--secondary" id="skipBtn">
+              <span class="btn-icon" aria-hidden="true">⏭️</span>
+              <span class="btn-text">Skip</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="resultsSection" aria-label="Quiz results" hidden>
+      <div class="section-card">
+        <div class="results-header">
+          <h2 class="results-title">Quiz Complete! 🎉</h2>
+          <div class="score-circle">
+            <div class="score-percentage" id="scorePercentage">0%</div>
+            <div class="score-label">Score</div>
+          </div>
+        </div>
+
+        <div class="results-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="correctAnswers">0</div>
+            <div class="stat-label">Correct</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="incorrectAnswers">0</div>
+            <div class="stat-label">Incorrect</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="totalTime">0:00</div>
+            <div class="stat-label">Total Time</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="finalGrade">-</div>
+            <div class="stat-label">Grade</div>
+          </div>
+        </div>
+
+        <!-- Detailed Results -->
+        <div class="detailed-results">
+          <h3 class="subsection-title">Question Review</h3>
+          <div class="results-list" id="resultsList">
+            <!-- Results will be populated here -->
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+          <button type="button" class="btn btn--primary" id="retakeBtn">
+            <span class="btn-icon" aria-hidden="true">🔄</span>
+            <span class="btn-text">Retake Quiz</span>
+          </button>
+          <button type="button" class="btn btn--secondary" id="createNewBtn">
+            <span class="btn-icon" aria-hidden="true">➕</span>
+            <span class="btn-text">Create New Quiz</span>
+          </button>
+          <button type="button" class="btn btn--success" id="saveResultsBtn">
+            <span class="btn-icon" aria-hidden="true">💾</span>
+            <span class="btn-text">Save Results</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
+  </div>
+
+  <!-- CC System Integration -->
+  <script src="../cc-system.js"></script>
   <script src="Quiz.js"></script>
 </body>
 </html>

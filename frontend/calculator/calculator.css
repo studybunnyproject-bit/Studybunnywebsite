@@ -1,58 +1,546 @@
+/* ===================================
+   CSS Custom Properties (Variables)
+   =================================== */
+:root {
+  /* Color Palette */
+  --primary-purple: #7850a0;
+  --secondary-purple: #b48cc8;
+  --accent-pink: #fc77d2;
+  --background-light: #f6defa;
+  --background-calculator: #e0f3ff;
+  --background-display: #ffffff;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --text-display: #fc77d2;
+  --border-light: #dab8d8;
+  --border-display: #e0e0e0;
+  --shadow-light: rgba(200, 220, 255, 0.3);
+  --shadow-calculator: rgba(120, 80, 160, 0.15);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  
+  /* Typography */
+  --font-family-primary: 'Comic Sans MS', fantasy, sans-serif;
+  --font-family-mono: 'Courier New', 'Monaco', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-display: 1.75rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  --border-radius-2xl: 1.5rem;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+  
+  /* Calculator Specific */
+  --calculator-width: 320px;
+  --calculator-max-width: 90vw;
+  --button-size: 60px;
+  --display-height: 80px;
+  --grid-gap: 12px;
+}
+
+/* ===================================
+   Reset and Base Styles
+   =================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: fantasy, sans-serif;
-  background: rgb(246, 222, 250);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.calculator {
-  background: rgb(224, 243, 255);
-  padding: 20px;
-  border-radius: 16px;
-  border: solid powderblue;
-  width: 300px;
-}
-
-#display {
-  width: 100%;
-  height: 60px;
-  font-size: 24px;
-  padding: 10px;
-  box-sizing: border-box;
-  border: solid lightgray;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  text-align: right;
-  background: white;
-  color: rgb(252, 119, 210);
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: linear-gradient(135deg, var(--background-light), #f0e6ff);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 button {
-  padding: 18px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: rgb(252, 119, 210);
-  color: rgb(120, 80,160);
-  font-family: fantasy,sans-serif;
+  font-family: inherit;
   cursor: pointer;
-  transition: background 0.1s ease;
+  border: none;
+  background: none;
+  transition: all var(--transition-fast);
 }
 
-button:hover {
-  background: rgb(247, 198, 233);
+button:focus-visible {
+  outline: 3px solid var(--primary-purple);
+  outline-offset: 2px;
+}
+
+/* ===================================
+   Navigation Styles
+   =================================== */
+.app-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-fast);
+}
+
+.back-btn:hover,
+.back-btn:focus {
+  background: var(--background-light);
+  transform: translateX(-2px);
+}
+
+.back-icon {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ===================================
+   Main Content Layout
+   =================================== */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: calc(60px + var(--spacing-lg)) var(--spacing-md) var(--spacing-lg);
+  gap: var(--spacing-xl);
+}
+
+.calculator-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.calculator-title {
+  color: var(--primary-purple);
+  font-size: clamp(var(--font-size-2xl), 5vw, var(--font-size-3xl));
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-sm) 0;
+  text-shadow: 0 2px 4px var(--shadow-light);
+}
+
+.calculator-subtitle {
+  color: var(--text-light);
+  font-size: var(--font-size-lg);
+  margin: 0;
+  font-weight: var(--font-weight-normal);
+}
+
+/* ===================================
+   Calculator Widget Styles
+   =================================== */
+.calculator-section {
+  width: 100%;
+  max-width: var(--calculator-max-width);
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  background: var(--background-calculator);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-2xl);
+  border: 2px solid var(--border-light);
+  box-shadow: 
+    0 10px 30px var(--shadow-calculator),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  width: var(--calculator-width);
+  max-width: 100%;
+  position: relative;
+}
+
+/* ===================================
+   Display Styles
+   =================================== */
+.display-container {
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+
+.display {
+  width: 100%;
+  height: var(--display-height);
+  font-size: var(--font-size-display);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-display);
+  border-radius: var(--border-radius-lg);
+  background: var(--background-display);
+  color: var(--text-display);
+  text-align: right;
+  resize: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-fast);
+}
+
+.display:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(120, 80, 160, 0.1);
+}
+
+.display-overlay {
+  position: absolute;
+  top: var(--spacing-xs);
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-light);
+  pointer-events: none;
+  font-family: var(--font-family-mono);
+}
+
+.expression {
+  display: block;
+  text-align: right;
+  opacity: 0.7;
+}
+
+/* ===================================
+   Button Grid Layout
+   =================================== */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gap);
+  width: 100%;
+}
+
+/* ===================================
+   Button Base Styles
+   =================================== */
+.btn {
+  height: var(--button-size);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 2px solid transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-calculator);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ===================================
+   Button Variants
+   =================================== */
+.btn--number {
+  background: linear-gradient(135deg, var(--accent-pink), #ff9dd4);
+  color: var(--primary-purple);
+}
+
+.btn--number:hover {
+  background: linear-gradient(135deg, #ff9dd4, var(--accent-pink));
   color: white;
 }
 
-button.zero {
+.btn--operator {
+  background: linear-gradient(135deg, var(--secondary-purple), var(--primary-purple));
+  color: white;
+}
+
+.btn--operator:hover {
+  background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
+}
+
+.btn--equals {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  grid-row: span 2;
+  height: calc(var(--button-size) * 2 + var(--grid-gap));
+}
+
+.btn--equals:hover {
+  background: linear-gradient(135deg, #66bb6a, #4caf50);
+}
+
+.btn--clear {
+  background: linear-gradient(135deg, #f44336, #ef5350);
+  color: white;
+}
+
+.btn--clear:hover {
+  background: linear-gradient(135deg, #ef5350, #f44336);
+}
+
+.btn--delete {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+  color: white;
+}
+
+.btn--delete:hover {
+  background: linear-gradient(135deg, #ffb74d, #ff9800);
+}
+
+.btn--function {
+  background: linear-gradient(135deg, #9c27b0, #ba68c8);
+  color: white;
+}
+
+.btn--function:hover {
+  background: linear-gradient(135deg, #ba68c8, #9c27b0);
+}
+
+.btn--zero {
   grid-column: span 2;
+}
+
+/* ===================================
+   Error Message Styles
+   =================================== */
+.error-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--error-color);
+  border-radius: var(--border-radius-md);
+  color: var(--error-color);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* ===================================
+   Help Section Styles
+   =================================== */
+.help-section {
+  width: 100%;
+  max-width: var(--calculator-width);
+  margin-top: var(--spacing-lg);
+}
+
+.help-details {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.help-summary {
+  padding: var(--spacing-md);
+  cursor: pointer;
+  background: var(--background-light);
+  font-weight: var(--font-weight-medium);
+  color: var(--primary-purple);
+  transition: background var(--transition-fast);
+  border: none;
+  outline: none;
+}
+
+.help-summary:hover,
+.help-summary:focus {
+  background: var(--secondary-purple);
+  color: white;
+}
+
+.help-content {
+  padding: var(--spacing-md);
+}
+
+.shortcut-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.shortcut-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: rgba(120, 80, 160, 0.05);
+  border-radius: var(--border-radius-sm);
+}
+
+kbd {
+  background: var(--primary-purple);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ===================================
+   Animations
+   =================================== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.btn--animate {
+  animation: pulse 0.3s ease-in-out;
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 480px) {
+  :root {
+    --calculator-width: 280px;
+    --button-size: 50px;
+    --display-height: 70px;
+    --grid-gap: 8px;
+    --font-size-display: 1.5rem;
+    --spacing-xl: 1rem;
+  }
+  
+  .main-content {
+    padding: calc(60px + var(--spacing-md)) var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+  
+  .calculator {
+    padding: var(--spacing-lg);
+  }
+  
+  .calculator-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .calculator-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .btn {
+    font-size: var(--font-size-lg);
+  }
+  
+  .help-section {
+    margin-top: var(--spacing-md);
+  }
+}
+
+@media (max-width: 320px) {
+  :root {
+    --calculator-width: 260px;
+    --button-size: 45px;
+    --grid-gap: 6px;
+  }
+  
+  .calculator {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ===================================
+   High Contrast Mode
+   =================================== */
+@media (prefers-contrast: high) {
+  :root {
+    --background-calculator: #ffffff;
+    --background-display: #f8f9fa;
+    --border-display: #000000;
+    --text-display: #000000;
+  }
+  
+  .btn {
+    border: 2px solid #000000;
+  }
+}
+
+/* ===================================
+   Reduced Motion
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===================================
+   Print Styles
+   =================================== */
+@media print {
+  .app-navigation,
+  .help-section {
+    display: none;
+  }
+  
+  .main-content {
+    padding: var(--spacing-md);
+  }
+  
+  .calculator {
+    background: white;
+    box-shadow: none;
+    border: 2px solid #000000;
+  }
 }

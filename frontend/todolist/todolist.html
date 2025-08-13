@@ -1,35 +1,280 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>TO-DO-LIST</title>
-    <link rel="stylesheet" href="todolist.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700& =Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Todo List - Organize your tasks with categories, priorities, and due dates">
+  <meta name="keywords" content="todo, tasks, productivity, organization, planning">
+  
+  <title>Study Bunny Todo List</title>
+  
+  <link rel="stylesheet" href="todolist.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="todo-header">
+      <h1 class="todo-title">Todo List</h1>
+      <p class="todo-subtitle">Stay organized and get things done! ✅</p>
+    </header>
+
     <div class="todo-container">
-      <h1 id="h1">TO DO LIST</h1>
-    
-    
-      <div class="input-container">
-        <input type="text" id="task" placeholder="TASK">
-      </div>
-      <div class="button-container">
-        <button id="bn" onclick="addTask()">+</button>
-        <div id="taskList" class="task-list"></div>
+      <!-- Add Task Section -->
+      <section class="add-task-section" aria-label="Add new task">
+        <form class="task-form" id="taskForm">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="taskInput" class="form-label sr-only">Task description</label>
+              <input 
+                type="text" 
+                id="taskInput" 
+                class="task-input"
+                placeholder="What needs to be done?"
+                maxlength="200"
+                required
+              >
+            </div>
+            <button type="submit" class="add-btn" aria-label="Add task">
+              <span class="btn-icon" aria-hidden="true">➕</span>
+            </button>
+          </div>
+
+          <!-- Advanced Options -->
+          <div class="advanced-options" id="advancedOptions">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="categorySelect" class="form-label">Category</label>
+                <select id="categorySelect" class="form-select">
+                  <option value="general">📋 General</option>
+                  <option value="study">📚 Study</option>
+                  <option value="work">💼 Work</option>
+                  <option value="personal">👤 Personal</option>
+                  <option value="health">💪 Health</option>
+                  <option value="shopping">🛒 Shopping</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="prioritySelect" class="form-label">Priority</label>
+                <select id="prioritySelect" class="form-select">
+                  <option value="low">🟢 Low</option>
+                  <option value="medium" selected>🟡 Medium</option>
+                  <option value="high">🔴 High</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="dueDateInput" class="form-label">Due Date</label>
+                <input type="date" id="dueDateInput" class="form-input">
+              </div>
+            </div>
+
+            <button type="button" class="toggle-options-btn" id="toggleOptionsBtn">
+              <span class="btn-text">Hide Options</span>
+              <span class="btn-icon" aria-hidden="true">▲</span>
+            </button>
+          </div>
+
+          <button type="button" class="show-options-btn" id="showOptionsBtn">
+            <span class="btn-text">More Options</span>
+            <span class="btn-icon" aria-hidden="true">▼</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Filters and Stats -->
+      <section class="controls-section" aria-label="Task filters and statistics">
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-value" id="totalTasks">0</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="completedTasks">0</span>
+            <span class="stat-label">Done</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="pendingTasks">0</span>
+            <span class="stat-label">Pending</span>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-group">
+            <button type="button" class="filter-btn active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="pending">Pending</button>
+            <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+            <button type="button" class="filter-btn" data-filter="overdue">Overdue</button>
+          </div>
+
+          <div class="action-group">
+            <button type="button" class="action-btn" id="sortBtn" aria-label="Sort tasks">
+              <span class="btn-icon" aria-hidden="true">🔄</span>
+              <span class="btn-text">Sort</span>
+            </button>
+            <button type="button" class="action-btn" id="clearCompletedBtn" aria-label="Clear completed tasks">
+              <span class="btn-icon" aria-hidden="true">🗑️</span>
+              <span class="btn-text">Clear Done</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tasks List -->
+      <section class="tasks-section" aria-label="Your tasks">
+        <div class="tasks-container" id="tasksContainer">
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon" aria-hidden="true">📝</div>
+            <h3 class="empty-title">No tasks yet!</h3>
+            <p class="empty-text">Add your first task above to get started.</p>
+          </div>
+
+          <div class="tasks-list" id="tasksList" role="list">
+            <!-- Tasks will be populated here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Sections (for organized view) -->
+      <section class="categories-section" id="categoriesSection" style="display: none;" aria-label="Tasks by category">
+        <div class="categories-container" id="categoriesContainer">
+          <!-- Category groups will be populated here -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Sort Modal -->
+  <div class="modal-overlay" id="sortModal" role="dialog" aria-labelledby="sortModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="sortModalTitle" class="modal-title">Sort Tasks</h3>
+        <button type="button" class="close-btn" id="closeSortModal" aria-label="Close sort options">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="sort-options">
+          <button type="button" class="sort-btn" data-sort="dateAdded">
+            <span class="sort-icon" aria-hidden="true">📅</span>
+            <span class="sort-text">Date Added</span>
+          </button>
+          <button type="button" class="sort-btn" data-sort="dueDate">
+            <span class="sort-icon" aria-hidden="true">⏰</span>
+            <span class="sort-text">Due Date</span>
+          </button>
+          <button type="button" class="sort-btn" data-sort="priority">
+            <span class="sort-icon" aria-hidden="true">🔥</span>
+            <span class="sort-text">Priority</span>
+          </button>
+          <button type="button" class="sort-btn" data-sort="alphabetical">
+            <span class="sort-icon" aria-hidden="true">🔤</span>
+            <span class="sort-text">Alphabetical</span>
+          </button>
+          <button type="button" class="sort-btn" data-sort="category">
+            <span class="sort-icon" aria-hidden="true">📂</span>
+            <span class="sort-text">Category</span>
+          </button>
+        </div>
         
-        <p id="taskLimitMsg" class="warning-msg"></p>
-        
+        <div class="view-options">
+          <h4 class="options-title">View Options</h4>
+          <button type="button" class="view-btn" id="listViewBtn">
+            <span class="view-icon" aria-hidden="true">📋</span>
+            <span class="view-text">List View</span>
+          </button>
+          <button type="button" class="view-btn" id="categoryViewBtn">
+            <span class="view-icon" aria-hidden="true">📂</span>
+            <span class="view-text">Category View</span>
+          </button>
+        </div>
       </div>
     </div>
-    
-    
-    <script src="todolist-cc.js"></script>
-    <script src="todolist.js"></script>
-  </body>
+  </div>
+
+  <!-- Task Edit Modal -->
+  <div class="modal-overlay" id="editModal" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="editModalTitle" class="modal-title">Edit Task</h3>
+        <button type="button" class="close-btn" id="closeEditModal" aria-label="Close edit dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <form class="edit-form" id="editForm">
+          <div class="form-group">
+            <label for="editTaskText" class="form-label">Task</label>
+            <textarea 
+              id="editTaskText" 
+              class="form-textarea"
+              rows="3"
+              maxlength="200"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editCategory" class="form-label">Category</label>
+              <select id="editCategory" class="form-select">
+                <option value="general">📋 General</option>
+                <option value="study">📚 Study</option>
+                <option value="work">💼 Work</option>
+                <option value="personal">👤 Personal</option>
+                <option value="health">💪 Health</option>
+                <option value="shopping">🛒 Shopping</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="editPriority" class="form-label">Priority</label>
+              <select id="editPriority" class="form-select">
+                <option value="low">🟢 Low</option>
+                <option value="medium">🟡 Medium</option>
+                <option value="high">🔴 High</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="editDueDate" class="form-label">Due Date</label>
+            <input type="date" id="editDueDate" class="form-input">
+          </div>
+
+          <div class="modal-actions">
+            <button type="submit" class="btn btn--primary">
+              <span class="btn-icon" aria-hidden="true">💾</span>
+              <span class="btn-text">Save Changes</span>
+            </button>
+            <button type="button" class="btn btn--secondary" id="cancelEditBtn">
+              <span class="btn-text">Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
+  </div>
+
+  <!-- CC System Integration -->
+  <script src="../cc-system.js"></script>
+  <script src="todolist.js"></script>
+</body>
 </html>

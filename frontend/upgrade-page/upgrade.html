@@ -1,58 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Upgrade Plans</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upgrade your Study Bunny plan for unlimited features and enhanced productivity">
+  <meta name="keywords" content="study bunny, upgrade, premium, subscription, productivity">
+  
+  <title>Study Bunny Premium - Upgrade Your Plan</title>
+  
   <style>
-    body { font-family: fantasy,sans-serif; padding: 20px; background: rgb(246, 222, 250); }
-    h1 { color: #783f9f; }
-    .plan { border: 2px solid #fc77d2; border-radius: 10px; padding: 20px; margin: 15px 0; }
+    /* CSS Custom Properties */
+    :root {
+      --primary-purple: #7850a0;
+      --secondary-purple: #b48cc8;
+      --accent-pink: #fc77d2;
+      --background-light: #f6defa;
+      --background-container: #e0f3ff;
+      --background-card: #ffffff;
+      --text-dark: #333333;
+      --text-light: #666666;
+      --text-muted: #999999;
+      --border-light: #dab8d8;
+      --shadow-card: rgba(120, 80, 160, 0.15);
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --gradient-primary: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+      --gradient-accent: linear-gradient(135deg, var(--accent-pink), #ff9dd4);
+      --gradient-success: linear-gradient(135deg, var(--success-color), #66bb6a);
+      
+      --font-family-primary: 'Comic Sans MS', fantasy, sans-serif;
+      --font-family-secondary: system-ui, -apple-system, sans-serif;
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-bold: 700;
+      
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+      
+      --border-radius-md: 0.5rem;
+      --border-radius-lg: 0.75rem;
+      --border-radius-xl: 1rem;
+      --border-radius-2xl: 1.5rem;
+      
+      --transition-fast: 0.15s ease-in-out;
+      --transition-normal: 0.3s ease-in-out;
+    }
+
+    /* Reset and Base Styles */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: linear-gradient(135deg, var(--background-light), #f0e6ff);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: var(--primary-purple);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--border-radius-lg);
+      transition: all var(--transition-fast);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .back-btn:hover {
+      background: var(--background-container);
+      transform: translateX(-2px);
+    }
+
+    .title {
+      color: var(--primary-purple);
+      font-size: clamp(var(--font-size-2xl), 5vw, var(--font-size-3xl));
+      font-weight: var(--font-weight-bold);
+      margin: 0 0 var(--spacing-md) 0;
+    }
+
+    .subtitle {
+      color: var(--text-light);
+      font-size: var(--font-size-lg);
+      margin: 0 0 var(--spacing-lg) 0;
+      font-family: var(--font-family-secondary);
+    }
+
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .pricing-card {
+      background: var(--background-card);
+      border: 2px solid var(--border-light);
+      border-radius: var(--border-radius-2xl);
+      padding: var(--spacing-xl);
+      position: relative;
+      transition: all var(--transition-normal);
+      box-shadow: 0 4px 20px var(--shadow-card);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px var(--shadow-card);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-pink);
+      background: linear-gradient(135deg, var(--background-card), #fff5fc);
+    }
+
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-accent);
+      color: white;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: var(--border-radius-lg);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .plan-name {
+      color: var(--primary-purple);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin: 0 0 var(--spacing-sm) 0;
+    }
+
+    .plan-price {
+      color: var(--accent-pink);
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin: 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: var(--spacing-xs);
+    }
+
+    .currency {
+      font-size: var(--font-size-lg);
+    }
+
+    .period {
+      font-size: var(--font-size-base);
+      color: var(--text-light);
+      font-weight: var(--font-weight-normal);
+    }
+
+    .plan-savings {
+      color: var(--success-color);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      margin-top: var(--spacing-xs);
+    }
+
+    /* Features List */
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--spacing-xl) 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md) 0;
+      border-bottom: 1px solid rgba(120, 80, 160, 0.1);
+      font-family: var(--font-family-secondary);
+    }
+
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      color: var(--success-color);
+      font-size: var(--font-size-lg);
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      color: var(--text-dark);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .feature-highlight {
+      color: var(--accent-pink);
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* CTA Button */
+    .cta-button {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border: none;
+      border-radius: var(--border-radius-xl);
+      font-family: var(--font-family-primary);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-decoration: none;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(252, 119, 210, 0.3);
+    }
+
+    .cta-button--primary {
+      background: var(--gradient-accent);
+      color: white;
+    }
+
+    .cta-button--secondary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .cta-button--success {
+      background: var(--gradient-success);
+      color: white;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(252, 119, 210, 0.4);
+    }
+
+    .cta-icon {
+      font-size: var(--font-size-xl);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background: var(--background-container);
+      border-radius: var(--border-radius-2xl);
+      padding: var(--spacing-2xl);
+      margin-top: var(--spacing-2xl);
+    }
+
+    .faq-title {
+      color: var(--primary-purple);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+      margin: 0 0 var(--spacing-xl) 0;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .faq-item {
+      background: var(--background-card);
+      border-radius: var(--border-radius-lg);
+      padding: var(--spacing-lg);
+    }
+
+    .faq-question {
+      color: var(--primary-purple);
+      font-weight: var(--font-weight-bold);
+      margin: 0 0 var(--spacing-sm) 0;
+    }
+
+    .faq-answer {
+      color: var(--text-light);
+      margin: 0;
+      font-family: var(--font-family-secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: var(--spacing-lg) var(--spacing-md);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+      }
+
+      .plan-price {
+        font-size: var(--font-size-2xl);
+      }
+
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Loading state */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .loading .cta-button {
+      background: #ccc;
+    }
+
+    /* Success state */
+    .success-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--background-card);
+      border: 2px solid var(--success-color);
+      border-radius: var(--border-radius-xl);
+      padding: var(--spacing-xl);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
   </style>
 </head>
+
 <body>
-  <h1>Upgrade your plan</h1>
-  <div class="plan">
-    <h2>$4.99/month</h2>
-    <p>
-     •20 flashcards.
-     <br>
-     •20 quizzes.
-     <br>
-     •50 tasks.
-     <br>
-     •1000 words.
-     <br>
-     •basic pomodoro sounds.
-     <br>
-     •custumizable timer.
-    </p>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <a href="../mainpage.html" class="back-btn">
+        <span style="font-size: var(--font-size-lg); font-weight: bold;">←</span>
+        <span>Back to Study Bunny</span>
+      </a>
+      
+      <h1 class="title">Upgrade to Premium</h1>
+      <p class="subtitle">Unlock unlimited features and supercharge your productivity! 🚀</p>
+    </header>
+
+    <!-- Pricing Cards -->
+    <main class="pricing-grid">
+      <!-- Monthly Plan -->
+      <article class="pricing-card">
+        <div class="card-header">
+          <h2 class="plan-name">Monthly Plan</h2>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span>4.99</span>
+            <span class="period">/month</span>
+          </div>
+        </div>
+
+        <ul class="features-list">
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">20</span> Flashcards</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">20</span> Quiz Questions</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">50</span> Todo Tasks</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">1,000</span> Words in Notes</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Basic Pomodoro Sounds</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Customizable Timer</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Priority Support</span>
+          </li>
+        </ul>
+
+        <button class="cta-button cta-button--primary" onclick="selectPlan('monthly', 4.99)">
+          <span class="cta-icon">🚀</span>
+          <span>Start Monthly Plan</span>
+        </button>
+      </article>
+
+      <!-- Quarterly Plan (Featured) -->
+      <article class="pricing-card featured">
+        <div class="card-header">
+          <h2 class="plan-name">Quarterly Plan</h2>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span>9.99</span>
+            <span class="period">/3 months</span>
+          </div>
+          <div class="plan-savings">Save 33%!</div>
+        </div>
+
+        <ul class="features-list">
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">50</span> Flashcards</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">50</span> Quiz Questions</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">100</span> Todo Tasks</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text"><span class="feature-highlight">1,500</span> Words in Notes</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">All Pomodoro Sounds</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Advanced Timer Settings</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Progress Analytics</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Premium Support</span>
+          </li>
+        </ul>
+
+        <button class="cta-button cta-button--secondary" onclick="selectPlan('quarterly', 9.99)">
+          <span class="cta-icon">🎯</span>
+          <span>Choose Quarterly</span>
+        </button>
+      </article>
+
+      <!-- Annual Plan -->
+      <article class="pricing-card">
+        <div class="card-header">
+          <h2 class="plan-name">Annual Plan</h2>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span>39.99</span>
+            <span class="period">/year</span>
+          </div>
+          <div class="plan-savings">Save 66%!</div>
+        </div>
+
+        <ul class="features-list">
+          <li class="feature-item">
+            <span class="feature-icon">🚀</span>
+            <span class="feature-text"><span class="feature-highlight">Unlimited</span> Everything!</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Unlimited Flashcards</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Unlimited Quiz Questions</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Unlimited Todo Tasks</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Unlimited Notes</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">All Premium Features</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Priority Support</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✅</span>
+            <span class="feature-text">Early Access to New Features</span>
+          </li>
+        </ul>
+
+        <button class="cta-button cta-button--success" onclick="selectPlan('annual', 39.99)">
+          <span class="cta-icon">🏆</span>
+          <span>Go Annual & Save!</span>
+        </button>
+      </article>
+    </main>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3 class="faq-question">Can I cancel anytime?</h3>
+          <p class="faq-answer">Yes! You can cancel your subscription at any time. You'll continue to have access to premium features until the end of your billing period.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">What payment methods do you accept?</h3>
+          <p class="faq-answer">We accept all major credit cards, PayPal, and mobile money through our secure payment processor.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Is my data safe?</h3>
+          <p class="faq-answer">Absolutely! Your data is encrypted and stored securely. We never share your personal information with third parties.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Can I upgrade or downgrade my plan?</h3>
+          <p class="faq-answer">Yes! You can change your plan at any time. Changes will be reflected in your next billing cycle.</p>
+        </div>
+      </div>
+    </section>
   </div>
-  <div class="plan">
-    <h2>$9.99/3 months</h2>
-    <p>
-     •50 flashcards.
-     <br>
-     •50 quizzes.
-     <br>
-     •100 tasks.
-     <br>
-     •1500 words.
-     <br>
-     •unlocked pomodoro sounds.
-     <br>
-     •custumizable timer.
-    </p>
+
+  <!-- Success Message -->
+  <div id="successMessage" class="success-message">
+    <h3 style="color: var(--success-color); margin: 0 0 var(--spacing-md) 0;">🎉 Welcome to Premium!</h3>
+    <p style="margin: 0; color: var(--text-light);">Your upgrade was successful. Redirecting you back...</p>
   </div>
-  <div class="plan">
-    <h2>$39.99/year</h2>
-    <p>
-      •unlimited everything.
-    </p>
-  </div>
-  
-  <a href="../mainpage.html">mainpage</a>
-  
-  
+
+  <!-- Payment Integration -->
   <script src="https://checkout.flutterwave.com/v3.js"></script>
   <script src="upgrade.js"></script>
 </body>

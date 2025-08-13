@@ -1,29 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Water Intake Tracker</title>
-  <link rel="stylesheet" href="water.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Water Tracker - Stay hydrated and track your daily water intake">
+  <meta name="keywords" content="water tracker, hydration, health, daily intake, wellness">
+  
+  <title>Study Bunny Water Tracker</title>
+  
+  <link rel="stylesheet" href="Water.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1> Water Tracker</h1>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-    <label for="cupSize">My Cup Size (ml):</label>
-    <br><br>
-    <input type="number" id="cupSize" placeholder="e.g. 250" min="50" />
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="water-header">
+      <h1 class="water-title">Water Tracker</h1>
+      <p class="water-subtitle">Stay hydrated, stay focused! 💧</p>
+    </header>
 
-    <p id="progress-text">Total: 0 ml</p>
+    <div class="tracker-container">
+      <!-- Progress Section -->
+      <section class="progress-section" aria-label="Daily water intake progress">
+        <div class="progress-circle">
+          <svg class="progress-ring" width="200" height="200">
+            <circle class="progress-ring-bg" cx="100" cy="100" r="85" />
+            <circle class="progress-ring-fill" cx="100" cy="100" r="85" id="progressCircle" />
+          </svg>
+          <div class="progress-content">
+            <div class="progress-amount" id="progressAmount">0 ml</div>
+            <div class="progress-goal" id="progressGoal">of 2000 ml</div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+          </div>
+        </div>
 
-    <div class="buttons">
-      <button onclick="addCup()">+ Add My Cup</button>
-      <button onclick="resetTracker()">🔄 Reset</button>
+        <div class="quick-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="cupsToday">0</div>
+            <div class="stat-label">Cups Today</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="timeToGoal">--</div>
+            <div class="stat-label">To Goal</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="currentStreak">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Add Section -->
+      <section class="quick-add-section" aria-label="Quick add water intake">
+        <h3 class="section-title">Quick Add</h3>
+        <div class="quick-buttons">
+          <button type="button" class="quick-btn" data-amount="250" aria-label="Add 250ml">
+            <span class="btn-icon" aria-hidden="true">🥤</span>
+            <span class="btn-text">250ml</span>
+            <span class="btn-label">Small Cup</span>
+          </button>
+          <button type="button" class="quick-btn" data-amount="350" aria-label="Add 350ml">
+            <span class="btn-icon" aria-hidden="true">🍺</span>
+            <span class="btn-text">350ml</span>
+            <span class="btn-label">Large Cup</span>
+          </button>
+          <button type="button" class="quick-btn" data-amount="500" aria-label="Add 500ml">
+            <span class="btn-icon" aria-hidden="true">🍶</span>
+            <span class="btn-text">500ml</span>
+            <span class="btn-label">Bottle</span>
+          </button>
+          <button type="button" class="quick-btn" data-amount="1000" aria-label="Add 1000ml">
+            <span class="btn-icon" aria-hidden="true">🏺</span>
+            <span class="btn-text">1000ml</span>
+            <span class="btn-label">Large Bottle</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Custom Amount Section -->
+      <section class="custom-section" aria-label="Add custom amount">
+        <h3 class="section-title">Custom Amount</h3>
+        <div class="custom-input-container">
+          <label for="customAmount" class="input-label sr-only">Enter custom amount in ml</label>
+          <input 
+            type="number" 
+            id="customAmount" 
+            class="custom-input"
+            placeholder="Enter amount (ml)"
+            min="1"
+            max="2000"
+            aria-describedby="customHelp"
+          >
+          <button type="button" class="add-custom-btn" id="addCustomBtn" aria-label="Add custom amount">
+            <span class="btn-icon" aria-hidden="true">➕</span>
+            <span class="btn-text">Add</span>
+          </button>
+        </div>
+        <div id="customHelp" class="input-help">
+          Enter any amount between 1-2000ml
+        </div>
+      </section>
+
+      <!-- Actions Section -->
+      <section class="actions-section" aria-label="Water tracker actions">
+        <div class="action-buttons">
+          <button type="button" class="action-btn" id="settingsBtn" aria-label="Water tracker settings">
+            <span class="btn-icon" aria-hidden="true">⚙️</span>
+            <span class="btn-text">Settings</span>
+          </button>
+          <button type="button" class="action-btn" id="historyBtn" aria-label="View water intake history">
+            <span class="btn-icon" aria-hidden="true">📊</span>
+            <span class="btn-text">History</span>
+          </button>
+          <button type="button" class="action-btn btn--danger" id="resetBtn" aria-label="Reset today's progress">
+            <span class="btn-icon" aria-hidden="true">🔄</span>
+            <span class="btn-text">Reset</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="activity-section" aria-label="Recent water intake activity">
+        <h3 class="section-title">Today's Activity</h3>
+        <div class="activity-list" id="activityList">
+          <!-- Activity items will be populated here -->
+        </div>
+      </section>
     </div>
+  </main>
 
-    <div class="cup-display" id="cup-display"></div>
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal" role="dialog" aria-labelledby="settingsTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="settingsTitle" class="modal-title">Water Tracker Settings</h3>
+        <button type="button" class="close-btn" id="closeSettings" aria-label="Close settings">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="settings-group">
+          <label for="dailyGoal" class="setting-label">Daily Goal (ml)</label>
+          <input type="range" id="dailyGoal" class="setting-slider" min="1000" max="4000" value="2000" step="250">
+          <span class="setting-value" id="dailyGoalValue">2000 ml</span>
+          <div class="setting-help">Recommended: 2000-3000ml per day</div>
+        </div>
+
+        <div class="settings-group">
+          <label for="reminderInterval" class="setting-label">Reminder Interval (hours)</label>
+          <input type="range" id="reminderInterval" class="setting-slider" min="0.5" max="4" value="1" step="0.5">
+          <span class="setting-value" id="reminderValue">1 hour</span>
+          <div class="setting-help">Set to 0.5 to disable reminders</div>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">
+            <input type="checkbox" id="notifications" class="setting-checkbox" checked>
+            Browser notifications
+          </label>
+        </div>
+
+        <div class="settings-group">
+          <label class="setting-label">
+            <input type="checkbox" id="soundEffects" class="setting-checkbox" checked>
+            Sound effects
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src="water.js"></script>
+  <!-- History Modal -->
+  <div class="modal-overlay" id="historyModal" role="dialog" aria-labelledby="historyTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="historyTitle" class="modal-title">Water Intake History</h3>
+        <button type="button" class="close-btn" id="closeHistory" aria-label="Close history">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <div class="history-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="weeklyAverage">0 ml</div>
+            <div class="stat-label">Weekly Average</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="bestDay">0 ml</div>
+            <div class="stat-label">Best Day</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="totalDays">0</div>
+            <div class="stat-label">Days Tracked</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="goalsAchieved">0</div>
+            <div class="stat-label">Goals Achieved</div>
+          </div>
+        </div>
+
+        <div class="history-timeline">
+          <h4 class="subsection-title">Recent Days</h4>
+          <div class="timeline-list" id="timelineList">
+            <!-- Timeline items will be populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Confirmation Modal -->
+  <div class="modal-overlay" id="resetModal" role="dialog" aria-labelledby="resetTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="resetTitle" class="modal-title">Reset Today's Progress</h3>
+        <button type="button" class="close-btn" id="closeReset" aria-label="Close reset confirmation">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <p class="modal-text">Are you sure you want to reset today's water intake progress? This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn--danger" id="confirmReset">
+            <span class="btn-icon" aria-hidden="true">🔄</span>
+            <span class="btn-text">Reset Progress</span>
+          </button>
+          <button type="button" class="btn btn--secondary" id="cancelReset">
+            <span class="btn-text">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
+  </div>
+
+  <!-- CC System Integration -->
+  <script src="../cc-system.js"></script>
+  <script src="Water.js"></script>
 </body>
 </html>

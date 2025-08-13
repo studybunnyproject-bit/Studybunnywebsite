@@ -2,41 +2,283 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculator</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Calculator - A beautiful and functional calculator for your study needs">
+  <meta name="keywords" content="calculator, math, study, education">
+  
+  <title>Study Bunny Calculator</title>
+  
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="calculator.css">
 </head>
+
 <body>
-  <div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="buttons">
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="deleteLast()">⌫</button>
-      <button onclick="appendOperator('/')">÷</button>
-      <button onclick="appendOperator('*')">×</button>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-      <button onclick="appendNumber('7')">7</button>
-      <button onclick="appendNumber('8')">8</button>
-      <button onclick="appendNumber('9')">9</button>
-      <button onclick="appendOperator('-')">−</button>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="calculator-header">
+      <h1 class="calculator-title">Calculator</h1>
+      <p class="calculator-subtitle">Solve your math problems with ease</p>
+    </header>
 
-      <button onclick="appendNumber('4')">4</button>
-      <button onclick="appendNumber('5')">5</button>
-      <button onclick="appendNumber('6')">6</button>
-      <button onclick="appendOperator('+')">+</button>
+    <!-- Calculator Widget -->
+    <section class="calculator-section" aria-label="Calculator interface">
+      <div class="calculator" role="application" aria-label="Calculator">
+        <!-- Display Screen -->
+        <div class="display-container">
+          <input 
+            type="text" 
+            id="display" 
+            class="display"
+            readonly
+            aria-label="Calculator display showing current calculation"
+            aria-live="polite"
+            value="0"
+          >
+          <div class="display-overlay" aria-hidden="true">
+            <span class="expression" id="expression"></span>
+          </div>
+        </div>
 
-      <button onclick="appendNumber('1')">1</button>
-      <button onclick="appendNumber('2')">2</button>
-      <button onclick="appendNumber('3')">3</button>
-      <button onclick="calculateResult()">=</button>
+        <!-- Calculator Buttons -->
+        <div class="buttons" role="grid" aria-label="Calculator buttons">
+          <!-- First Row: Clear, Delete, Division, Multiplication -->
+          <button 
+            type="button" 
+            class="btn btn--clear" 
+            data-action="clear"
+            aria-label="Clear all"
+            tabindex="0"
+          >
+            <span class="btn-text">AC</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--delete" 
+            data-action="delete"
+            aria-label="Delete last character"
+          >
+            <span class="btn-text">⌫</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--operator" 
+            data-action="operator"
+            data-value="/"
+            aria-label="Divide"
+          >
+            <span class="btn-text">÷</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--operator" 
+            data-action="operator"
+            data-value="*"
+            aria-label="Multiply"
+          >
+            <span class="btn-text">×</span>
+          </button>
 
-      <button onclick="appendNumber('0')" class="zero">0</button>
-      <button onclick="appendNumber('.')">.</button>
+          <!-- Second Row: 7, 8, 9, Subtract -->
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="7"
+            aria-label="Seven"
+          >
+            <span class="btn-text">7</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="8"
+            aria-label="Eight"
+          >
+            <span class="btn-text">8</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="9"
+            aria-label="Nine"
+          >
+            <span class="btn-text">9</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--operator" 
+            data-action="operator"
+            data-value="-"
+            aria-label="Subtract"
+          >
+            <span class="btn-text">−</span>
+          </button>
 
-      <button onclick="appendPi()">π</button>
-      <button onclick="squareRoot()">√</button>
-    </div>
-  </div>
+          <!-- Third Row: 4, 5, 6, Add -->
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="4"
+            aria-label="Four"
+          >
+            <span class="btn-text">4</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="5"
+            aria-label="Five"
+          >
+            <span class="btn-text">5</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="6"
+            aria-label="Six"
+          >
+            <span class="btn-text">6</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--operator" 
+            data-action="operator"
+            data-value="+"
+            aria-label="Add"
+          >
+            <span class="btn-text">+</span>
+          </button>
+
+          <!-- Fourth Row: 1, 2, 3, Equals -->
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="1"
+            aria-label="One"
+          >
+            <span class="btn-text">1</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="2"
+            aria-label="Two"
+          >
+            <span class="btn-text">2</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="3"
+            aria-label="Three"
+          >
+            <span class="btn-text">3</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--equals" 
+            data-action="calculate"
+            aria-label="Calculate result"
+            rowspan="2"
+          >
+            <span class="btn-text">=</span>
+          </button>
+
+          <!-- Fifth Row: 0, Decimal, Scientific Functions -->
+          <button 
+            type="button" 
+            class="btn btn--number btn--zero" 
+            data-action="number"
+            data-value="0"
+            aria-label="Zero"
+          >
+            <span class="btn-text">0</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--number" 
+            data-action="number"
+            data-value="."
+            aria-label="Decimal point"
+          >
+            <span class="btn-text">.</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--function" 
+            data-action="function"
+            data-value="pi"
+            aria-label="Pi constant"
+          >
+            <span class="btn-text">π</span>
+          </button>
+          
+          <button 
+            type="button" 
+            class="btn btn--function" 
+            data-action="function"
+            data-value="sqrt"
+            aria-label="Square root"
+          >
+            <span class="btn-text">√</span>
+          </button>
+        </div>
+
+        <!-- Error Display -->
+        <div id="errorMessage" class="error-message" role="alert" aria-live="assertive" hidden>
+          <span class="error-text"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help Section -->
+    <section class="help-section" aria-label="Calculator help">
+      <details class="help-details">
+        <summary class="help-summary">Keyboard Shortcuts</summary>
+        <div class="help-content">
+          <ul class="shortcut-list">
+            <li><kbd>0-9</kbd> - Numbers</li>
+            <li><kbd>+ - * /</kbd> - Basic operations</li>
+            <li><kbd>Enter</kbd> or <kbd>=</kbd> - Calculate</li>
+            <li><kbd>Escape</kbd> or <kbd>c</kbd> - Clear</li>
+            <li><kbd>Backspace</kbd> - Delete last</li>
+            <li><kbd>.</kbd> - Decimal point</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+  </main>
 
   <script src="calculator.js"></script>
 </body>

@@ -2,61 +2,274 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mood Tracker</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Mood Tracker - Track your daily mood and emotions for better mental wellness">
+  <meta name="keywords" content="mood tracker, emotions, mental health, wellness, daily tracking">
+  
+  <title>Study Bunny Mood Tracker</title>
+  
+  <!-- Custom Styles -->
   <link rel="stylesheet" href="mood.css">
 </head>
+
 <body>
-  <div class="container">
-    <h1>My Mood Tracker</h1>
-    <p>Select your mood for today:</p>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-    <div class="mood-options">
-  <div class="mood-circle">
-    <img src="images/happy.png" alt="Happy" data-mood="Happy"></div><br>
-    <p>happy</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/sad.png" alt="Sad" data-mood="Sad"></div><br>
-    <p>sad</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/angry.png" alt="Angry" data-mood="Angry"></div><br>
-    <p>angry</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/excited.png" alt="Excited" data-mood="Excited"></div><br>
-    <p>excited</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/tired.png" alt="Tired" data-mood="Tired"></div><br>
-    <p>tired</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/bored.png" alt="Bored" data-mood="Bored"></div><br>
-    <p>bored</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/confident.png" alt="Loved" data-mood="confident"></div><br>
-    <p>confident</p>
-    <br>
-  <div class="mood-circle">
-    <img src="images/stressed.png" alt="stressed" data-mood="stressed"></div><br>
-    <p>stressed</p>
-</div>
-    
-    <div class="reason-section">
-  <h3>Why do you feel this way?</h3>
-  <textarea id="moodReason" placeholder="Write here..."></textarea>
-  <button id="saveReason">Save Reason</button>
-</div>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="mood-header">
+      <h1 class="mood-title">Mood Tracker</h1>
+      <p class="mood-subtitle">How are you feeling today?</p>
+      <div class="date-display" aria-live="polite">
+        <span class="date-icon" aria-hidden="true">📅</span>
+        <time id="currentDate" datetime=""></time>
+      </div>
+    </header>
 
+    <div class="tracker-container">
+      <!-- Mood Selection Section -->
+      <section class="mood-selection" aria-label="Select your current mood">
+        <h2 class="section-title">Select Your Mood</h2>
+        <div class="mood-grid" role="radiogroup" aria-label="Choose your mood for today">
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="happy"
+            data-color="#4caf50"
+            aria-label="Happy mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/happy.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Happy</span>
+          </button>
 
-    <div id="mood-log">
-      <h2>Today’s Mood:</h2>
-      <p id="selectedMood">No mood selected yet.</p>
-      <h4>Reason:</h4>
-<p id="savedReason">No reason written yet.</p>
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="excited"
+            data-color="#ff9800"
+            aria-label="Excited mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/excited.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Excited</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="confident"
+            data-color="#2196f3"
+            aria-label="Confident mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/confident.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Confident</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="bored"
+            data-color="#9e9e9e"
+            aria-label="Bored mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/bored.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Bored</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="tired"
+            data-color="#673ab7"
+            aria-label="Tired mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/tired.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Tired</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="stressed"
+            data-color="#ff5722"
+            aria-label="Stressed mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/stressed.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Stressed</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="sad"
+            data-color="#607d8b"
+            aria-label="Sad mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/sad.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Sad</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="mood-option" 
+            data-mood="angry"
+            data-color="#f44336"
+            aria-label="Angry mood"
+            role="radio"
+            aria-checked="false"
+          >
+            <div class="mood-circle">
+              <img src="images/angry.png" alt="" aria-hidden="true">
+            </div>
+            <span class="mood-label">Angry</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Mood Reason Section -->
+      <section class="mood-reason" aria-label="Describe why you feel this way">
+        <h3 class="section-subtitle">What's making you feel this way?</h3>
+        <form class="reason-form" id="reasonForm">
+          <div class="form-group">
+            <label for="moodReason" class="form-label sr-only">Describe your mood</label>
+            <textarea 
+              id="moodReason" 
+              name="reason"
+              class="reason-textarea"
+              placeholder="Share what's on your mind... (optional)"
+              rows="4"
+              maxlength="500"
+              aria-describedby="reasonHelp"
+            ></textarea>
+            <div id="reasonHelp" class="form-help">
+              Expressing your feelings can help you understand your emotions better
+            </div>
+            <div class="character-count">
+              <span id="charCount">0</span>/500 characters
+            </div>
+          </div>
+          
+          <button type="submit" class="save-btn" id="saveBtn">
+            <span class="btn-icon" aria-hidden="true">💾</span>
+            <span class="btn-text">Save Mood Entry</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Current Mood Display -->
+      <section class="current-mood" aria-label="Today's mood summary">
+        <h3 class="section-subtitle">Today's Mood</h3>
+        <div class="mood-display" id="moodDisplay">
+          <div class="mood-status" id="moodStatus">
+            <div class="status-icon" id="statusIcon">
+              <span class="no-mood-icon" aria-hidden="true">😐</span>
+            </div>
+            <div class="status-text">
+              <div class="status-mood" id="statusMood">No mood selected yet</div>
+              <div class="status-time" id="statusTime"></div>
+            </div>
+          </div>
+          <div class="mood-reason-display" id="reasonDisplay">
+            <div class="reason-label">Why you feel this way:</div>
+            <div class="reason-text" id="reasonText">No reason shared yet</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mood History Section -->
+      <section class="mood-history" aria-label="Previous mood entries">
+        <div class="history-header">
+          <h3 class="section-subtitle">Mood History</h3>
+          <button type="button" class="history-toggle" id="historyToggle" aria-expanded="false">
+            <span class="toggle-text">View History</span>
+            <span class="toggle-icon" aria-hidden="true">▼</span>
+          </button>
+        </div>
+        
+        <div class="history-content" id="historyContent" hidden>
+          <div class="history-stats" id="historyStats">
+            <!-- Stats will be generated here -->
+          </div>
+          <div class="history-list" id="historyList">
+            <!-- History entries will be generated here -->
+          </div>
+          <button type="button" class="clear-history-btn" id="clearHistoryBtn">
+            <span class="btn-icon" aria-hidden="true">🗑️</span>
+            <span class="btn-text">Clear All History</span>
+          </button>
+        </div>
+      </section>
     </div>
+  </main>
+
+  <!-- Confirmation Modal -->
+  <div 
+    class="modal-overlay" 
+    id="confirmModal" 
+    role="dialog" 
+    aria-labelledby="confirmTitle" 
+    aria-hidden="true"
+  >
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="confirmTitle" class="modal-title">Clear Mood History</h3>
+        <button type="button" class="close-btn" id="closeModal" aria-label="Close confirmation dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <p class="modal-text">Are you sure you want to clear all your mood history? This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn--danger" id="confirmClear">
+            <span class="btn-icon" aria-hidden="true">🗑️</span>
+            <span class="btn-text">Clear History</span>
+          </button>
+          <button type="button" class="btn btn--secondary" id="cancelClear">
+            <span class="btn-text">Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
   </div>
 
   <script src="mood.js"></script>

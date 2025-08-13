@@ -37,6 +37,163 @@
       text-decoration: none;
       font-family: fantasy,sans-serif;
     }
+
+    /* Purchase Cards */
+    .purchase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .purchase-card {
+      background: white;
+      border: 3px solid rgb(252, 119, 210);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .purchase-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(252, 119, 210, 0.3);
+    }
+
+    .purchase-card.popular {
+      border-color: #4caf50;
+      transform: scale(1.05);
+    }
+
+    .package-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4caf50;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .package-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: rgb(120, 80, 160);
+      margin-bottom: 10px;
+    }
+
+    .package-cc {
+      font-size: 24px;
+      font-weight: bold;
+      color: rgb(252, 119, 210);
+      margin-bottom: 10px;
+    }
+
+    .package-price {
+      font-size: 20px;
+      color: rgb(120, 80, 160);
+      margin-bottom: 10px;
+    }
+
+    .package-savings {
+      color: #4caf50;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .purchase-btn {
+      background: rgb(252, 119, 210);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: fantasy, sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+
+    .purchase-btn:hover {
+      background: rgb(220, 100, 190);
+    }
+
+    /* Current Balance */
+    .current-balance {
+      background: linear-gradient(135deg, rgb(224, 243, 255), rgb(240, 248, 255));
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .balance-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: rgb(120, 80, 160);
+    }
+
+    .cc-icon-large {
+      width: 40px;
+      height: 40px;
+    }
+
+    .cc-balance-large {
+      font-family: 'Courier New', monospace;
+      color: rgb(252, 119, 210);
+    }
+
+    /* Progress Grid */
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .progress-item {
+      background: white;
+      border: 2px solid rgb(252, 119, 210);
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .progress-title {
+      font-weight: bold;
+      color: rgb(120, 80, 160);
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(135deg, rgb(252, 119, 210), rgb(255, 150, 220));
+      transition: width 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: rgb(120, 80, 160);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -69,15 +226,175 @@
 
   <div class="section">
     <h2>💰 Want more CC? You can buy it:</h2>
-    <ul>
-      <li>$0.99 = 100 CC</li>
-      <li>$9.99 = 1500 CC</li>
-      <li>$19.99 = 4000 CC</li>
-    </ul>
+    <div class="purchase-grid">
+      <div class="purchase-card">
+        <div class="package-name">Starter Pack</div>
+        <div class="package-cc">100 CC</div>
+        <div class="package-price">$0.99</div>
+        <button class="purchase-btn" data-cc-purchase="small">Buy Now</button>
+      </div>
+      
+      <div class="purchase-card popular">
+        <div class="package-badge">Most Popular!</div>
+        <div class="package-name">Value Pack</div>
+        <div class="package-cc">1,500 CC</div>
+        <div class="package-price">$9.99</div>
+        <div class="package-savings">Save 33%!</div>
+        <button class="purchase-btn" data-cc-purchase="medium">Buy Now</button>
+      </div>
+      
+      <div class="purchase-card">
+        <div class="package-name">Ultimate Pack</div>
+        <div class="package-cc">4,000 CC</div>
+        <div class="package-price">$19.99</div>
+        <div class="package-savings">Save 50%!</div>
+        <button class="purchase-btn" data-cc-purchase="large">Buy Now</button>
+      </div>
+    </div>
     <p><em>Purchases help support the app and unlock special outfits and features!</em></p>
   </div>
 
+  <!-- Current Balance Display -->
+  <div class="section current-balance">
+    <h2>Your Current Balance:</h2>
+    <div class="balance-display">
+      <img src="cc.png" alt="Carrot Currency" class="cc-icon-large">
+      <span class="cc-balance-large">0.00</span> CC
+    </div>
+  </div>
+
+  <!-- Activity Progress -->
+  <div class="section">
+    <h2>📊 Your Progress Towards Next Rewards:</h2>
+    <div class="progress-grid" id="progressGrid">
+      <!-- Will be populated by JavaScript -->
+    </div>
+  </div>
+
   <a href="mainpage.html" class="back-button">← Back to App</a>
+
+  <!-- CC System Integration -->
+  <script src="cc-system.js"></script>
+  <script>
+    // Initialize CC Info Page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateBalanceDisplay();
+      updateProgressDisplay();
+      
+      // Listen for CC updates
+      document.addEventListener('ccUpdated', function() {
+        updateBalanceDisplay();
+        updateProgressDisplay();
+      });
+    });
+
+    function updateBalanceDisplay() {
+      const balanceElement = document.querySelector('.cc-balance-large');
+      if (balanceElement && window.StudyBunnyCC) {
+        balanceElement.textContent = window.StudyBunnyCC.getBalance().toFixed(2);
+      }
+    }
+
+    function updateProgressDisplay() {
+      const progressGrid = document.getElementById('progressGrid');
+      if (!progressGrid || !window.StudyBunnyCC) return;
+
+      const stats = window.StudyBunnyCC.getStats();
+      const activities = stats.activities;
+
+      const progressItems = [
+        {
+          title: '✅ Todo Tasks',
+          current: activities.todoCompleted % 10,
+          target: 10,
+          reward: '+0.1 CC',
+          icon: '📝'
+        },
+        {
+          title: '📝 Words Written',
+          current: activities.wordsWritten % 50,
+          target: 50,
+          reward: '+0.1 CC',
+          icon: '✍️'
+        },
+        {
+          title: '⏲️ Pomodoro Minutes',
+          current: activities.pomodoroMinutes % 10,
+          target: 10,
+          reward: '+0.1 CC',
+          icon: '🍅'
+        },
+        {
+          title: '🃏 Correct Flashcards',
+          current: activities.flashcardsCorrect % 10,
+          target: 10,
+          reward: '+0.1 CC',
+          icon: '🎯'
+        },
+        {
+          title: '🧠 Correct Quiz Answers',
+          current: activities.quizCorrect % 10,
+          target: 10,
+          reward: '+0.1 CC',
+          icon: '💡'
+        }
+      ];
+
+      progressGrid.innerHTML = progressItems.map(item => {
+        const percentage = (item.current / item.target) * 100;
+        return `
+          <div class="progress-item">
+            <div class="progress-title">${item.icon} ${item.title}</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${percentage}%"></div>
+            </div>
+            <div class="progress-text">
+              ${item.current}/${item.target} - Next reward: ${item.reward}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Test CC System (for demo purposes)
+    function testCCSystem() {
+      if (!window.StudyBunnyCC) {
+        alert('CC System not loaded!');
+        return;
+      }
+
+      const actions = [
+        () => window.StudyBunnyCC.trackTodoCompleted(1),
+        () => window.StudyBunnyCC.trackWordsWritten(10),
+        () => window.StudyBunnyCC.trackPomodoroMinutes(2),
+        () => window.StudyBunnyCC.trackFlashcardCorrect(3),
+        () => window.StudyBunnyCC.trackQuizCorrect(2)
+      ];
+
+      const randomAction = actions[Math.floor(Math.random() * actions.length)];
+      randomAction();
+      
+      setTimeout(() => {
+        updateBalanceDisplay();
+        updateProgressDisplay();
+      }, 100);
+    }
+
+    // Add test button for demonstration
+    window.addEventListener('load', function() {
+      const testButton = document.createElement('button');
+      testButton.textContent = '🧪 Test CC System';
+      testButton.style.cssText = `
+        position: fixed; bottom: 20px; right: 20px;
+        background: #4caf50; color: white; border: none;
+        padding: 10px 15px; border-radius: 8px;
+        font-family: fantasy, sans-serif; cursor: pointer;
+        z-index: 1000;
+      `;
+      testButton.onclick = testCCSystem;
+      document.body.appendChild(testButton);
+    });
+  </script>
 
 </body>
 </html>

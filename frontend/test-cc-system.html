@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC System Test</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', fantasy, sans-serif;
+      background: linear-gradient(135deg, #f6defa, #f0e6ff);
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #7850a0;
+      text-align: center;
+    }
+    .test-section {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(120, 80, 160, 0.15);
+    }
+    .test-button {
+      background: linear-gradient(135deg, #b48cc8, #7850a0);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .test-button:hover {
+      background: linear-gradient(135deg, #7850a0, #fc77d2);
+    }
+    .status {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+    .cc-display {
+      font-size: 24px;
+      color: #7850a0;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+      background: #fff0f8;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .instructions {
+      background: #e6f4ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .activity-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #dab8d8;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7850a0;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>🥕 CC System Test Page</h1>
+  
+  <div class="instructions">
+    <h3>📋 Instructions:</h3>
+    <p>Use this page to test the CC (Carrot Currency) system. Each activity type needs to reach its threshold to earn 0.1 CC:</p>
+    <ul>
+      <li>✅ Todo Tasks: Complete 10 tasks = +0.1 CC</li>
+      <li>📝 Notes: Write 50 words = +0.1 CC</li>
+      <li>⏲️ Pomodoro: 10 minutes focus = +0.1 CC</li>
+      <li>🃏 Flashcards: 10 correct answers = +0.1 CC</li>
+      <li>🧠 Quizzes: 10 correct answers = +0.1 CC</li>
+    </ul>
+  </div>
+
+  <div class="cc-display">
+    Current CC Balance: <span id="ccAmount">0.00</span> 🥕
+  </div>
+
+  <div class="activity-stats">
+    <div class="stat-card">
+      <div class="stat-value" id="todoCount">0</div>
+      <div class="stat-label">Todo Tasks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="wordsCount">0</div>
+      <div class="stat-label">Words Written</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="pomodoroCount">0</div>
+      <div class="stat-label">Pomodoro Minutes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="flashcardCount">0</div>
+      <div class="stat-label">Flashcards Correct</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="quizCount">0</div>
+      <div class="stat-label">Quiz Correct</div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2>✅ Test Todo Tasks</h2>
+    <button class="test-button" onclick="testTodo(1)">Complete 1 Task</button>
+    <button class="test-button" onclick="testTodo(5)">Complete 5 Tasks</button>
+    <button class="test-button" onclick="testTodo(10)">Complete 10 Tasks (Earn CC!)</button>
+    <div class="status" id="todoStatus">Ready to test...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>📝 Test Notes</h2>
+    <button class="test-button" onclick="testWords(10)">Write 10 Words</button>
+    <button class="test-button" onclick="testWords(25)">Write 25 Words</button>
+    <button class="test-button" onclick="testWords(50)">Write 50 Words (Earn CC!)</button>
+    <div class="status" id="wordsStatus">Ready to test...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>⏲️ Test Pomodoro</h2>
+    <button class="test-button" onclick="testPomodoro(5)">Complete 5 Minutes</button>
+    <button class="test-button" onclick="testPomodoro(10)">Complete 10 Minutes (Earn CC!)</button>
+    <button class="test-button" onclick="testPomodoro(25)">Complete 25 Minutes</button>
+    <div class="status" id="pomodoroStatus">Ready to test...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>🃏 Test Flashcards</h2>
+    <button class="test-button" onclick="testFlashcards(5)">5 Correct Answers</button>
+    <button class="test-button" onclick="testFlashcards(10)">10 Correct Answers (Earn CC!)</button>
+    <button class="test-button" onclick="testFlashcards(15)">15 Correct Answers</button>
+    <div class="status" id="flashcardsStatus">Ready to test...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>🧠 Test Quiz</h2>
+    <button class="test-button" onclick="testQuiz(5)">5 Correct Answers</button>
+    <button class="test-button" onclick="testQuiz(10)">10 Correct Answers (Earn CC!)</button>
+    <button class="test-button" onclick="testQuiz(15)">15 Correct Answers</button>
+    <div class="status" id="quizStatus">Ready to test...</div>
+  </div>
+
+  <div class="test-section">
+    <h2>🛠️ Utility Functions</h2>
+    <button class="test-button" onclick="viewStats()">View Stats</button>
+    <button class="test-button" onclick="resetSystem()">Reset CC System</button>
+    <button class="test-button" onclick="addCustomCC()">Add 1.0 Custom CC</button>
+    <div class="status" id="utilityStatus">Ready...</div>
+  </div>
+
+  <script src="cc-system.js"></script>
+  <script>
+    // Wait for CC system to initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize CC system if not already done
+      if (window.StudyBunnyCC && !window.StudyBunnyCC.getBalance) {
+        window.StudyBunnyCC.init();
+      }
+      
+      // Initial display update
+      setTimeout(() => {
+        updateDisplay();
+      }, 100);
+    });
+
+    // Update display on load
+    function updateDisplay() {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not loaded');
+        return;
+      }
+      
+      const stats = window.StudyBunnyCC.getStats();
+      document.getElementById('ccAmount').textContent = stats.balance.toFixed(2);
+      document.getElementById('todoCount').textContent = stats.activities.todoCompleted || 0;
+      document.getElementById('wordsCount').textContent = stats.activities.wordsWritten || 0;
+      document.getElementById('pomodoroCount').textContent = stats.activities.pomodoroMinutes || 0;
+      document.getElementById('flashcardCount').textContent = stats.activities.flashcardsCorrect || 0;
+      document.getElementById('quizCount').textContent = stats.activities.quizCorrect || 0;
+    }
+
+    // Listen for CC updates
+    document.addEventListener('ccUpdated', updateDisplay);
+
+    // Test functions
+    function testTodo(count) {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not available');
+        document.getElementById('todoStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.trackTodoCompleted(count);
+      document.getElementById('todoStatus').textContent = `Added ${count} completed task(s). Total: ${window.StudyBunnyCC.getStats().activities.todoCompleted}`;
+      updateDisplay();
+    }
+
+    function testWords(count) {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not available');
+        document.getElementById('wordsStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.trackWordsWritten(count);
+      document.getElementById('wordsStatus').textContent = `Added ${count} word(s). Total: ${window.StudyBunnyCC.getStats().activities.wordsWritten}`;
+      updateDisplay();
+    }
+
+    function testPomodoro(minutes) {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not available');
+        document.getElementById('pomodoroStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.trackPomodoroMinutes(minutes);
+      document.getElementById('pomodoroStatus').textContent = `Added ${minutes} minute(s). Total: ${window.StudyBunnyCC.getStats().activities.pomodoroMinutes}`;
+      updateDisplay();
+    }
+
+    function testFlashcards(count) {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not available');
+        document.getElementById('flashcardsStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.trackFlashcardCorrect(count);
+      document.getElementById('flashcardsStatus').textContent = `Added ${count} correct answer(s). Total: ${window.StudyBunnyCC.getStats().activities.flashcardsCorrect}`;
+      updateDisplay();
+    }
+
+    function testQuiz(count) {
+      if (!window.StudyBunnyCC) {
+        console.error('CC System not available');
+        document.getElementById('quizStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.trackQuizCorrect(count);
+      document.getElementById('quizStatus').textContent = `Added ${count} correct answer(s). Total: ${window.StudyBunnyCC.getStats().activities.quizCorrect}`;
+      updateDisplay();
+    }
+
+    function viewStats() {
+      if (!window.StudyBunnyCC) {
+        document.getElementById('utilityStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      const stats = window.StudyBunnyCC.getStats();
+      document.getElementById('utilityStatus').innerHTML = `
+        <strong>Current Stats:</strong><br>
+        Balance: ${stats.balance.toFixed(2)} CC<br>
+        Todos: ${stats.activities.todoCompleted}<br>
+        Words: ${stats.activities.wordsWritten}<br>
+        Pomodoro: ${stats.activities.pomodoroMinutes} min<br>
+        Flashcards: ${stats.activities.flashcardsCorrect}<br>
+        Quiz: ${stats.activities.quizCorrect}<br>
+        Last Active: ${stats.lastActive || 'Today'}
+      `;
+    }
+
+    function resetSystem() {
+      if (!window.StudyBunnyCC) {
+        document.getElementById('utilityStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      if (confirm('Are you sure you want to reset all CC data?')) {
+        window.StudyBunnyCC.reset();
+        updateDisplay();
+        document.getElementById('utilityStatus').textContent = 'System reset complete!';
+      }
+    }
+
+    function addCustomCC() {
+      if (!window.StudyBunnyCC) {
+        document.getElementById('utilityStatus').textContent = 'Error: CC System not loaded';
+        return;
+      }
+      window.StudyBunnyCC.earnCC(1.0, 'Test reward');
+      updateDisplay();
+      document.getElementById('utilityStatus').textContent = 'Added 1.0 CC as test reward!';
+    }
+  </script>
+</body>
+</html>

@@ -2,47 +2,257 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PLANNERS</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Study Bunny Planners - Organize your study schedule with daily, weekly, and monthly planners">
+  <meta name="keywords" content="planner, schedule, daily, weekly, monthly, organization, productivity">
+  
+  <title>Study Bunny Planners</title>
+  
   <link rel="stylesheet" href="planner.css">
 </head>
+
 <body>
+  <!-- Navigation -->
+  <nav class="app-navigation" role="navigation" aria-label="App navigation">
+    <a href="../mainpage.html" class="back-btn" aria-label="Back to Study Bunny home">
+      <span class="back-icon" aria-hidden="true">←</span>
+      <span class="back-text">Back to Home</span>
+    </a>
+  </nav>
 
-  <h1>PLANNERS</h1>
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <header class="planner-header">
+      <h1 class="planner-title">Study Planners</h1>
+      <p class="planner-subtitle">Plan your success, one day at a time! 📅</p>
+    </header>
 
-  <div class="planners-container">
-    <a href="daily.code/daily.html">DAILY</a>
-    <a href="weekly.code/weekly.html">WEEKLY</a>
-    <a href="monthly.code/monthly.html">MONTHLY</a>
+    <div class="planner-container">
+      <!-- Current Time & Date -->
+      <section class="time-section" aria-label="Current time and date">
+        <div class="time-display">
+          <div class="digital-time">
+            <div class="time-info">
+              <div class="current-time" id="currentTime">12:00:00</div>
+              <div class="current-date" id="currentDate">Monday, January 1, 2024</div>
+            </div>
+            <div class="timezone" id="timezone">Local Time</div>
+          </div>
+          
+          <div class="analog-clock">
+            <div class="clock-face">
+              <div class="hour-markers">
+                <div class="marker hour-12">12</div>
+                <div class="marker hour-3">3</div>
+                <div class="marker hour-6">6</div>
+                <div class="marker hour-9">9</div>
+              </div>
+              <div class="hand hour-hand" id="hourHand"></div>
+              <div class="hand minute-hand" id="minuteHand"></div>
+              <div class="hand second-hand" id="secondHand"></div>
+              <div class="center-dot"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Stats -->
+      <section class="quick-stats" aria-label="Today's quick stats">
+        <h2 class="section-title">Today's Overview</h2>
+        <div class="stats-grid">
+          <div class="stat-card tasks">
+            <div class="stat-icon" aria-hidden="true">✅</div>
+            <div class="stat-content">
+              <div class="stat-value" id="tasksCompleted">0</div>
+              <div class="stat-label">Tasks Done</div>
+            </div>
+          </div>
+          
+          <div class="stat-card time">
+            <div class="stat-icon" aria-hidden="true">⏰</div>
+            <div class="stat-content">
+              <div class="stat-value" id="studyTime">0h</div>
+              <div class="stat-label">Study Time</div>
+            </div>
+          </div>
+          
+          <div class="stat-card goals">
+            <div class="stat-icon" aria-hidden="true">🎯</div>
+            <div class="stat-content">
+              <div class="stat-value" id="goalsProgress">0%</div>
+              <div class="stat-label">Goals Progress</div>
+            </div>
+          </div>
+          
+          <div class="stat-card streak">
+            <div class="stat-icon" aria-hidden="true">🔥</div>
+            <div class="stat-content">
+              <div class="stat-value" id="currentStreak">0</div>
+              <div class="stat-label">Day Streak</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Planner Navigation -->
+      <section class="planners-navigation" aria-label="Choose your planner">
+        <h2 class="section-title">Choose Your Planner</h2>
+        <div class="planners-grid">
+          <a href="daily.code/daily.html" class="planner-card daily">
+            <div class="planner-icon" aria-hidden="true">📋</div>
+            <div class="planner-content">
+              <h3 class="planner-name">Daily Planner</h3>
+              <p class="planner-description">Plan your day hour by hour with time blocks and priorities</p>
+              <div class="planner-features">
+                <span class="feature">⏰ Time Blocks</span>
+                <span class="feature">📝 Tasks</span>
+                <span class="feature">🎯 Goals</span>
+              </div>
+            </div>
+            <div class="planner-arrow" aria-hidden="true">→</div>
+          </a>
+
+          <a href="weekly.code/weekly.html" class="planner-card weekly">
+            <div class="planner-icon" aria-hidden="true">📊</div>
+            <div class="planner-content">
+              <h3 class="planner-name">Weekly Planner</h3>
+              <p class="planner-description">Organize your week with drag & drop scheduling and goal tracking</p>
+              <div class="planner-features">
+                <span class="feature">📅 Week View</span>
+                <span class="feature">🎯 Weekly Goals</span>
+                <span class="feature">📈 Progress</span>
+              </div>
+            </div>
+            <div class="planner-arrow" aria-hidden="true">→</div>
+          </a>
+
+          <a href="monthly.code/monthly.html" class="planner-card monthly">
+            <div class="planner-icon" aria-hidden="true">📆</div>
+            <div class="planner-content">
+              <h3 class="planner-name">Monthly Planner</h3>
+              <p class="planner-description">Long-term planning with calendar view and habit tracking</p>
+              <div class="planner-features">
+                <span class="feature">📆 Calendar</span>
+                <span class="feature">🔄 Habits</span>
+                <span class="feature">📊 Analytics</span>
+              </div>
+            </div>
+            <div class="planner-arrow" aria-hidden="true">→</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions" aria-label="Quick actions">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="actions-grid">
+          <button type="button" class="action-btn" id="addQuickTask">
+            <span class="btn-icon" aria-hidden="true">➕</span>
+            <span class="btn-text">Add Quick Task</span>
+          </button>
+          
+          <button type="button" class="action-btn" id="setDailyGoal">
+            <span class="btn-icon" aria-hidden="true">🎯</span>
+            <span class="btn-text">Set Daily Goal</span>
+          </button>
+          
+          <button type="button" class="action-btn" id="viewProgress">
+            <span class="btn-icon" aria-hidden="true">📈</span>
+            <span class="btn-text">View Progress</span>
+          </button>
+          
+          <button type="button" class="action-btn" id="exportPlans">
+            <span class="btn-icon" aria-hidden="true">📤</span>
+            <span class="btn-text">Export Plans</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Today's Summary -->
+      <section class="todays-summary" aria-label="Today's summary">
+        <h2 class="section-title">Today's Summary</h2>
+        <div class="summary-content">
+          <div class="summary-item">
+            <h3 class="summary-title">Upcoming Tasks</h3>
+            <div class="task-preview" id="upcomingTasks">
+              <div class="empty-state">No tasks scheduled for today</div>
+            </div>
+          </div>
+          
+          <div class="summary-item">
+            <h3 class="summary-title">Today's Goal</h3>
+            <div class="goal-preview" id="todaysGoal">
+              <div class="empty-state">No goal set for today</div>
+            </div>
+          </div>
+          
+          <div class="summary-item">
+            <h3 class="summary-title">Focus Time</h3>
+            <div class="focus-time" id="focusTime">
+              <div class="focus-session">
+                <span class="focus-duration">25 min</span>
+                <span class="focus-label">Recommended focus session</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Quick Task Modal -->
+  <div class="modal-overlay" id="quickTaskModal" role="dialog" aria-labelledby="quickTaskModalTitle" aria-hidden="true">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="quickTaskModalTitle" class="modal-title">Add Quick Task</h3>
+        <button type="button" class="close-btn" id="closeQuickTaskModal" aria-label="Close task dialog">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      
+      <div class="modal-body">
+        <form class="quick-task-form" id="quickTaskForm">
+          <div class="form-group">
+            <label for="taskTitle" class="form-label">Task</label>
+            <input type="text" id="taskTitle" class="form-input" placeholder="What needs to be done?" required>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="taskTime" class="form-label">Time</label>
+              <input type="time" id="taskTime" class="form-input">
+            </div>
+            
+            <div class="form-group">
+              <label for="taskPriority" class="form-label">Priority</label>
+              <select id="taskPriority" class="form-select">
+                <option value="low">🟢 Low</option>
+                <option value="medium" selected>🟡 Medium</option>
+                <option value="high">🔴 High</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="submit" class="btn btn--primary">
+              <span class="btn-icon" aria-hidden="true">➕</span>
+              <span class="btn-text">Add Task</span>
+            </button>
+            <button type="button" class="btn btn--secondary" id="cancelQuickTask">
+              <span class="btn-text">Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  
-  <div class="analog-clock">
-  <div class="hand hour" id="hour"></div>
-  <div class="hand minute" id="minute"></div>
-  <div class="hand second" id="second"></div>
-  <div class="center-dot"></div>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" aria-live="polite" role="status">
+    <!-- Notifications will be inserted here -->
   </div>
 
-  <script>
-  
-    function updateAnalogClock() {
-  const now = new Date();
-  const seconds = now.getSeconds();
-  const minutes = now.getMinutes();
-  const hours = now.getHours();
-
-  const secondDeg = seconds * 6;
-  const minuteDeg = minutes * 6 + seconds * 0.1;
-  const hourDeg = ((hours % 12) / 12) * 360 + (minutes / 60) * 30;
-
-  document.getElementById("second").style.transform = `rotate(${secondDeg}deg)`;
-  document.getElementById("minute").style.transform = `rotate(${minuteDeg}deg)`;
-  document.getElementById("hour").style.transform = `rotate(${hourDeg}deg)`;
-}
-
-setInterval(updateAnalogClock, 1000);
-updateAnalogClock();
-  
-  </script>
-
+  <script src="planner.js"></script>
 </body>
 </html>
